@@ -3,11 +3,11 @@
 
 
 int main() {
-    Dir d1 = Dir(direction::u);
-    Dir d2 = Dir(direction::f);
-    Dir d3 = Dir(direction::r);
+    direction d1 = direction::u;
+    direction d2 = direction::f;
+    direction d3 = direction::r;
 
-    Two_side a = Two_side(Color::B, Color::W, d1, d2);
+    Twoside a = Twoside(Color::B, Color::W, d1, d2);
     Angle b = Angle(Color::B, Color::W, Color::R, d1, d2, d3);
 
     std::cout << a << "\n";

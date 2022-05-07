@@ -34,17 +34,19 @@ public:
 
 std::ostream &operator <<(std::ostream &out, Dir &d);
 
-class Two_side {
+class Twoside {
 
 public:
     Dir dir[2];
-    Color color[2];
+    Color color[2]{};
 
-    Two_side(const Two_side &c);
+    Twoside();
 
-    Two_side &operator=(const Two_side &c1);
+    Twoside(const Twoside &c);
 
-    Two_side(const Color &c1, const Color &c2, const Dir &d1, const Dir &d2);
+    Twoside &operator=(const Twoside &c1);
+
+    Twoside(const Color &c1, const Color &c2, const direction &d1, const direction &d2);
 
     const Dir *get_dir() const;
 
@@ -76,7 +78,7 @@ public:
 
 };
 
-std::ostream &operator <<(std::ostream &out, Two_side a);
+std::ostream &operator <<(std::ostream &out, Twoside a);
 
 class Angle {
 
@@ -85,11 +87,13 @@ public:
     Dir dir[3];
     Color color[3];
 
+    Angle();
+
     Angle(const Angle &c);
 
     Angle &operator=(const Angle &c1);
 
-    Angle(const Color &c1, const Color &c2, const Color &c3, const Dir &d1, const Dir &d2, const Dir &d3);
+    Angle(const Color &c1, const Color &c2, const Color &c3, const direction &d1, const direction &d2, const direction &d3);
 
     const Dir *get_dir() const;
 
@@ -120,6 +124,7 @@ public:
     bool is_d();
 
 };
+
 
 std::ostream &operator <<(std::ostream &out, Angle a);
 
