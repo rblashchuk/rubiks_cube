@@ -1,5 +1,32 @@
 #include "details.h"
 
+std::ostream &operator<<(std::ostream &out, Color c){
+    switch (c) {
+        case(Color::W):
+            out << 'W';
+            break;
+        case(Color::B):
+            out << 'B';
+            break;
+        case(Color::R):
+            out << 'R';
+            break;
+        case(Color::O):
+            out << 'O';
+            break;
+        case (Color::G):
+            out << 'G';
+            break;
+        case (Color::Y):
+            out << 'Y';
+            break;
+        case (Color::X):
+            out << 'X';
+            break;
+    }
+    return out;
+}
+
 Dir::Dir(direction a){
     dir = a;
 }
@@ -270,6 +297,54 @@ bool Twoside::is_d() {
     return ((dir[0].dir == direction::d) || (dir[1].dir == direction::d));
 }
 
+Color Twoside::frontside(){
+    if (this->is_f()){
+        if (dir[0] == Dir(direction::f)) return color[0];
+        else return color[1];
+    }
+    else return Color::X;
+}
+
+Color Twoside::backside(){
+    if (this->is_b()){
+        if (dir[0] == Dir(direction::b)) return color[0];
+        else return color[1];
+    }
+    else return Color::X;
+}
+
+Color Twoside::leftside(){
+    if (this->is_l()){
+        if (dir[0] == Dir(direction::l)) return color[0];
+        else return color[1];
+    }
+    else return Color::X;
+}
+
+Color Twoside::rightside(){
+    if (this->is_r()){
+        if (dir[0] == Dir(direction::r)) return color[0];
+        else return color[1];
+    }
+    else return Color::X;
+}
+
+Color Twoside::upside(){
+    if (this->is_u()){
+        if (dir[0] == Dir(direction::u)) return color[0];
+        else return color[1];
+    }
+    else return Color::X;
+}
+
+Color Twoside::downside(){
+    if (this->is_d()){
+        if (dir[0] == Dir(direction::d)) return color[0];
+        else return color[1];
+    }
+    else return Color::X;
+}
+
 const Dir *Twoside::get_dir() const{
     return dir;
 }
@@ -415,6 +490,60 @@ bool Angle::is_u() {
 
 bool Angle::is_d() {
     return ((dir[0].dir == direction::d) || (dir[1].dir == direction::d) || (dir[2].dir == direction::d));
+}
+
+Color Angle::frontside(){
+    if (this->is_f()) {
+        if (dir[0] == Dir(direction::f)) return color[0];
+        else if (dir[1] == Dir(direction::f)) return color[1];
+        else return color[2];
+    }
+    else return Color::X;
+}
+
+Color Angle::backside(){
+    if (this->is_b()) {
+        if (dir[0] == Dir(direction::b)) return color[0];
+        else if (dir[1] == Dir(direction::b)) return color[1];
+        else return color[2];
+    }
+    else return Color::X;
+}
+
+Color Angle::leftside(){
+    if (this->is_l()) {
+        if (dir[0] == Dir(direction::l)) return color[0];
+        else if (dir[1] == Dir(direction::l)) return color[1];
+        else return color[2];
+    }
+    else return Color::X;
+}
+
+Color Angle::rightside(){
+    if (this->is_r()) {
+        if (dir[0] == Dir(direction::r)) return color[0];
+        else if (dir[1] == Dir(direction::r)) return color[1];
+        else return color[2];
+    }
+    else return Color::X;
+}
+
+Color Angle::upside(){
+    if (this->is_u()) {
+        if (dir[0] == Dir(direction::u)) return color[0];
+        else if (dir[1] == Dir(direction::u)) return color[1];
+        else return color[2];
+    }
+    else return Color::X;
+}
+
+Color Angle::downside(){
+    if (this->is_d()) {
+        if (dir[0] == Dir(direction::d)) return color[0];
+        else if (dir[1] == Dir(direction::d)) return color[1];
+        else return color[2];
+    }
+    else return Color::X;
 }
 
 std::ostream &operator <<(std::ostream &out, Angle a){

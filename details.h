@@ -8,7 +8,9 @@
 
 enum class direction {f, b, r, l, u, d};
 
-enum class Color {W, B, R, O, G, Y};
+enum class Color {W, B, R, O, G, Y, X};
+
+std::ostream &operator<<(std::ostream &out, Color c);
 
 class Dir {
 public:
@@ -30,6 +32,7 @@ public:
 
     void D();
 
+    bool operator == (const Dir &d1) const = default;
 };
 
 std::ostream &operator <<(std::ostream &out, Dir &d);
@@ -75,6 +78,18 @@ public:
     bool is_u();
 
     bool is_d();
+
+    Color frontside();
+
+    Color backside();
+
+    Color leftside();
+
+    Color rightside();
+
+    Color upside();
+
+    Color downside();
 
 };
 
@@ -122,6 +137,18 @@ public:
     bool is_u();
 
     bool is_d();
+
+    Color frontside();
+
+    Color backside();
+
+    Color leftside();
+
+    Color rightside();
+
+    Color upside();
+
+    Color downside();
 
 };
 

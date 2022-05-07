@@ -1,6 +1,6 @@
 #include <iostream>
 #include "details.h"
-
+#include "cube.h"
 
 int main() {
     direction d1 = direction::u;
@@ -24,7 +24,21 @@ int main() {
     b.R();
     b.R();
 
-    std::cout << b;
+    std::cout << b << "\n";
+
+    Cube c = Cube();
+    std::cout << c;
+
+    c.L();
+    c.U();
+    c.U();
+    c.R();
+    c.D();
+    c.B();
+    c.B();
+
+    std::cout << c;
+
 }
 
 
