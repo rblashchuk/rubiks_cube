@@ -26,6 +26,18 @@ public:
 
     void D();
 
+    void rL();
+
+    void rR();
+
+    void rF();
+
+    void rB();
+
+    void rU();
+
+    void rD();
+
     Angle FLU();
 
     Angle FUR();
@@ -77,6 +89,9 @@ public:
     Color *upside();
 
     Color *downside();
+
+
+    void cross();
 };
 
 std::ostream &operator<<(std::ostream &out, Cube c);

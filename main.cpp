@@ -28,14 +28,15 @@ int main() {
 
     Cube c = Cube();
     std::cout << c;
-
-    c.L();
-    c.U();
-    c.U();
     c.R();
+    c.B();
+    c.U();
+    c.L();
     c.D();
     c.B();
-    c.B();
+    c.R();
+    std::cout << c;
+    c.cross();
 
     std::cout << c;
 

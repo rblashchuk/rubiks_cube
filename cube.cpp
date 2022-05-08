@@ -1,25 +1,25 @@
 #include "details.h"
 #include "cube.h"
 
-Color White = Color::W;
-Color Red = Color::R;
-Color Blue = Color::B;
-Color Orange = Color::O;
-Color Green = Color::G;
-Color Yellow = Color::Y;
+const Color White = Color::W;
+const Color Red = Color::R;
+const Color Blue = Color::B;
+const Color Orange = Color::O;
+const Color Green = Color::G;
+const Color Yellow = Color::Y;
 
-direction f = direction::f;
-direction b = direction::b;
-direction l =direction::l;
-direction r = direction::r;
-direction u = direction::u;
-direction d = direction::d;
+const direction f = direction::f;
+const direction b = direction::b;
+const direction l = direction::l;
+const direction r = direction::r;
+const direction u = direction::u;
+const direction d = direction::d;
 
 Cube::Cube(const Cube &c) = default;
 
 Cube &Cube::operator=(const Cube &c1) = default;
 
-Cube::Cube(): angles{Angle()}, twosides{Twoside()}{
+Cube::Cube() : angles{Angle()}, twosides{Twoside()} {
 
     angles[0] = Angle(White, Orange, Blue, f, l, u);
     angles[1] = Angle(White, Blue, Red, f, u, r);
@@ -45,187 +45,223 @@ Cube::Cube(): angles{Angle()}, twosides{Twoside()}{
 
 }
 
-void Cube::L(){
-    for (auto & angle : angles){
+void Cube::L() {
+    for (auto &angle: angles) {
         if (angle.is_l()) angle.L();
     }
 
-    for (auto & twoside : twosides){
+    for (auto &twoside: twosides) {
         if (twoside.is_l()) twoside.L();
     }
 }
 
-void Cube::R(){
-    for (auto & angle : angles){
+void Cube::R() {
+    for (auto &angle: angles) {
         if (angle.is_r()) angle.R();
     }
 
-    for (auto & twoside : twosides){
+    for (auto &twoside: twosides) {
         if (twoside.is_r()) twoside.R();
     }
 }
 
-void Cube::F(){
-    for (auto & angle : angles){
+void Cube::F() {
+    for (auto &angle: angles) {
         if (angle.is_f()) angle.F();
     }
 
-    for (auto & twoside : twosides){
+    for (auto &twoside: twosides) {
         if (twoside.is_f()) twoside.F();
     }
 }
 
-void Cube::B(){
-    for (auto & angle : angles){
+void Cube::B() {
+    for (auto &angle: angles) {
         if (angle.is_b()) angle.B();
     }
 
-    for (auto & twoside : twosides){
+    for (auto &twoside: twosides) {
         if (twoside.is_b()) twoside.B();
     }
 }
 
-void Cube::U(){
-    for (auto & angle : angles){
+void Cube::U() {
+    for (auto &angle: angles) {
         if (angle.is_u()) angle.U();
     }
 
-    for (auto & twoside : twosides){
+    for (auto &twoside: twosides) {
         if (twoside.is_u()) twoside.U();
     }
 }
 
-void Cube::D(){
-    for (auto & angle : angles){
+void Cube::D() {
+    for (auto &angle: angles) {
         if (angle.is_d()) angle.D();
     }
 
-    for (auto & twoside : twosides){
+    for (auto &twoside: twosides) {
         if (twoside.is_d()) twoside.D();
     }
 }
 
-Angle Cube::FLU(){
-    for (auto & angle : angles){
+void Cube::rL(){
+    L();
+    L();
+    L();
+}
+
+void Cube::rR(){
+    R();
+    R();
+    R();
+}
+
+void Cube::rF(){
+    F();
+    F();
+    F();
+}
+
+void Cube::rB(){
+    B();
+    B();
+    B();
+}
+
+void Cube::rU(){
+    U();
+    U();
+    U();
+}
+
+void Cube::rD(){
+    D();
+    D();
+    D();
+}
+
+Angle Cube::FLU() {
+    for (auto &angle: angles) {
         if ((angle.is_f()) && (angle.is_l()) && (angle.is_u())) return angle;
     }
 }
 
-Angle Cube::FUR(){
-    for (auto & angle : angles){
+Angle Cube::FUR() {
+    for (auto &angle: angles) {
         if ((angle.is_f()) && (angle.is_u()) && (angle.is_r())) return angle;
     }
 }
 
-Angle Cube::FRD(){
-    for (auto & angle : angles){
+Angle Cube::FRD() {
+    for (auto &angle: angles) {
         if ((angle.is_f()) && (angle.is_r()) && (angle.is_d())) return angle;
     }
 }
 
-Angle Cube::FDL(){
-    for (auto & angle : angles){
+Angle Cube::FDL() {
+    for (auto &angle: angles) {
         if ((angle.is_f()) && (angle.is_d()) && (angle.is_l())) return angle;
     }
 }
 
-Angle Cube::BRU(){
-    for (auto & angle : angles){
+Angle Cube::BRU() {
+    for (auto &angle: angles) {
         if ((angle.is_b()) && (angle.is_r()) && (angle.is_u())) return angle;
     }
 }
 
-Angle Cube::BDR(){
-    for (auto & angle : angles){
+Angle Cube::BDR() {
+    for (auto &angle: angles) {
         if ((angle.is_b()) && (angle.is_d()) && (angle.is_r())) return angle;
     }
 }
 
-Angle Cube::BLD(){
-    for (auto & angle : angles){
+Angle Cube::BLD() {
+    for (auto &angle: angles) {
         if ((angle.is_b()) && (angle.is_l()) && (angle.is_d())) return angle;
     }
 }
 
-Angle Cube::BUL(){
-    for (auto & angle : angles){
+Angle Cube::BUL() {
+    for (auto &angle: angles) {
         if ((angle.is_b()) && (angle.is_u()) && (angle.is_l())) return angle;
     }
 }
 
-Twoside Cube::FU(){
-    for (auto & twoside : twosides){
+Twoside Cube::FU() {
+    for (auto &twoside: twosides) {
         if ((twoside.is_f()) && (twoside.is_u())) return twoside;
     }
 }
 
-Twoside Cube::FR(){
-    for (auto & twoside : twosides){
+Twoside Cube::FR() {
+    for (auto &twoside: twosides) {
         if ((twoside.is_f()) && (twoside.is_r())) return twoside;
     }
 }
 
-Twoside Cube::FD(){
-    for (auto & twoside : twosides){
+Twoside Cube::FD() {
+    for (auto &twoside: twosides) {
         if ((twoside.is_f()) && (twoside.is_d())) return twoside;
     }
 }
 
-Twoside Cube::FL(){
-    for (auto & twoside : twosides){
+Twoside Cube::FL() {
+    for (auto &twoside: twosides) {
         if ((twoside.is_f()) && (twoside.is_l())) return twoside;
     }
 }
 
-Twoside Cube::UR(){
-    for (auto & twoside : twosides){
+Twoside Cube::UR() {
+    for (auto &twoside: twosides) {
         if ((twoside.is_u()) && (twoside.is_r())) return twoside;
     }
 }
 
-Twoside Cube::RD(){
-    for (auto & twoside : twosides){
+Twoside Cube::RD() {
+    for (auto &twoside: twosides) {
         if ((twoside.is_r()) && (twoside.is_d())) return twoside;
     }
 }
 
-Twoside Cube::DL(){
-    for (auto & twoside : twosides){
+Twoside Cube::DL() {
+    for (auto &twoside: twosides) {
         if ((twoside.is_d()) && (twoside.is_l())) return twoside;
     }
 }
 
-Twoside Cube::LU(){
-    for (auto & twoside : twosides){
+Twoside Cube::LU() {
+    for (auto &twoside: twosides) {
         if ((twoside.is_l()) && (twoside.is_u())) return twoside;
     }
 }
 
-Twoside Cube::BU(){
-    for (auto & twoside : twosides){
+Twoside Cube::BU() {
+    for (auto &twoside: twosides) {
         if ((twoside.is_b()) && (twoside.is_u())) return twoside;
     }
 }
 
-Twoside Cube::BR(){
-    for (auto & twoside : twosides){
+Twoside Cube::BR() {
+    for (auto &twoside: twosides) {
         if ((twoside.is_b()) && (twoside.is_r())) return twoside;
     }
 }
 
-Twoside Cube::BD(){
-    for (auto & twoside : twosides){
+Twoside Cube::BD() {
+    for (auto &twoside: twosides) {
         if ((twoside.is_b()) && (twoside.is_d())) return twoside;
     }
 }
 
-Twoside Cube::BL(){
-    for (auto & twoside : twosides){
+Twoside Cube::BL() {
+    for (auto &twoside: twosides) {
         if ((twoside.is_b()) && (twoside.is_l())) return twoside;
     }
 }
 
-Color *Cube::frontside(){
+Color *Cube::frontside() {
     static Color ans[9];
     ans[0] = this->FLU().frontside();
     ans[1] = this->FU().frontside();
@@ -239,7 +275,7 @@ Color *Cube::frontside(){
     return ans;
 }
 
-Color *Cube::backside(){
+Color *Cube::backside() {
     static Color ans[9];
     ans[0] = this->BRU().backside();
     ans[1] = this->BU().backside();
@@ -253,7 +289,7 @@ Color *Cube::backside(){
     return ans;
 }
 
-Color *Cube::leftside(){
+Color *Cube::leftside() {
     static Color ans[9];
     ans[0] = this->BUL().leftside();
     ans[1] = this->LU().leftside();
@@ -267,7 +303,7 @@ Color *Cube::leftside(){
     return ans;
 }
 
-Color *Cube::rightside(){
+Color *Cube::rightside() {
     static Color ans[9];
     ans[0] = this->FUR().rightside();
     ans[1] = this->UR().rightside();
@@ -281,7 +317,7 @@ Color *Cube::rightside(){
     return ans;
 }
 
-Color *Cube::upside(){
+Color *Cube::upside() {
     static Color ans[9];
     ans[0] = this->BUL().upside();
     ans[1] = this->BU().upside();
@@ -295,7 +331,7 @@ Color *Cube::upside(){
     return ans;
 }
 
-Color *Cube::downside(){
+Color *Cube::downside() {
     static Color ans[9];
     ans[0] = this->FDL().downside();
     ans[1] = this->FD().downside();
@@ -309,7 +345,139 @@ Color *Cube::downside(){
     return ans;
 }
 
-std::ostream &operator<<(std::ostream &out, Cube c){
+void Cube::cross() {
+    for (int i = 0; i < 12; i++) {
+        if (twosides[i].color[0] == White) {
+            if (twosides[i].is_f()) {
+                if (twosides[i].placed()) {
+                    continue;
+                } else {
+                    if (twosides[i].is_u()) {
+                        U();
+                        i--;
+                        continue;
+                    }
+                    if (twosides[i].is_l()) {
+                        L();
+                        i--;
+                        continue;
+                    }
+                    if (twosides[i].is_r()) {
+                        R();
+                        i--;
+                        continue;
+                    }
+                    if (twosides[i].is_d()) {
+                        D();
+                        i--;
+                        continue;
+                    }
+                }
+            }
+            else if(twosides[i].is_b()){
+                if(twosides[i].backside() != White){
+
+                    while (!twosides[i].is_u()){
+                        B();
+                    }
+
+                    switch (twosides[i].backside()){
+                        case(Red):
+                            U();
+                            rR();
+                            break;
+
+                        case(Blue):
+                            B();
+                            L();
+                            rU();
+                            rL();
+                            break;
+
+                        case (Orange):
+                            rU();
+                            L();
+                            break;
+
+                        case (Green):
+                            B();
+                            rL();
+                            D();
+                            L();
+                            break;
+                    }
+                }
+
+                else{
+                    while (!twosides[i].is_u()){
+                        B();
+                    }
+                    switch (twosides[i].upside()){
+                        case(Red):
+                            rB();
+                            R();
+                            R();
+                            break;
+
+                        case(Blue):
+                            U();
+                            U();
+                            break;
+
+                        case (Orange):
+                            B();
+                            L();
+                            L();
+                            break;
+
+                        case (Green):
+                            B();
+                            B();
+                            D();
+                            D();
+                            break;
+                    }
+                }
+            }
+            else {
+                if ((twosides[i].is_u()) && (twosides[i].is_l())){
+                    rL();
+                    rB();
+                    L();
+                    i--;
+                    continue;
+                }
+
+                if ((twosides[i].is_u()) && (twosides[i].is_r())){
+                    R();
+                    rB();
+                    rR();
+                    i--;
+                    continue;
+                }
+
+                if ((twosides[i].is_d()) && (twosides[i].is_l())){
+                    L();
+                    rB();
+                    rL();
+                    i--;
+                    continue;
+                }
+
+                if ((twosides[i].is_d()) && (twosides[i].is_r())){
+                    rR();
+                    B();
+                    R();
+                    i--;
+                    continue;
+                }
+            }
+        }
+        else continue;
+    }
+}
+
+std::ostream &operator<<(std::ostream &out, Cube c) {
     Color *f = c.frontside();
     Color *b = c.backside();
     Color *l = c.leftside();
@@ -317,18 +485,18 @@ std::ostream &operator<<(std::ostream &out, Cube c){
     Color *u = c.upside();
     Color *d = c.downside();
 
-    out << "    +---+        \n";
-    out << "    |" << u[0] << u[1] << u[2] << "|        \n";
-    out << "    |" << u[3] << u[4] << u[5] << "|        \n";
-    out << "    |" << u[6] << u[7] << u[8] << "|        \n";
-    out << "+---+---+---+---+\n";
-    out << "|" << l[0] << l[1] << l[2] << "|" << f[0] << f[1] << f[2] << "|" << r[0] << r[1] << r[2] << "|" << b[0] << b[1] << b[2] << "|\n";
-    out << "|" << l[3] << l[4] << l[5] << "|" << f[3] << f[4] << f[5] << "|" << r[3] << r[4] << r[5] << "|" << b[3] << b[4] << b[5] << "|\n";
-    out << "|" << l[6] << l[7] << l[8] << "|" << f[6] << f[7] << f[8] << "|" << r[6] << r[7] << r[8] << "|" << b[6] << b[7] << b[8] << "|\n";
-    out << "+---+---+---+---+\n";
-    out << "    |" << d[0] << d[1] << d[2] << "|        \n";
-    out << "    |" << d[3] << d[4] << d[5] << "|        \n";
-    out << "    |" << d[6] << d[7] << d[8] << "|        \n";
-    out << "    +---+        \n";
+    out << "      +-----+        \n";
+    out << "      |" << u[0] << " " << u[1] << " " << u[2] << "|        \n";
+    out << "      |" << u[3] << " " << u[4] << " " << u[5] << "|        \n";
+    out << "      |" << u[6] << " " << u[7] << " " << u[8] << "|        \n";
+    out << "+-----+-----+-----+-----+\n";
+    out << "|" << l[0] << " " << l[1] << " " << l[2] << "|" << f[0] << " " << f[1] << " " << f[2] << "|" << r[0] << " " << r[1] << " " << r[2] << "|" << b[0] << " " << b[1] << " " << b[2] << "|\n";
+    out << "|" << l[3] << " " << l[4] << " " << l[5] << "|" << f[3] << " " << f[4] << " " << f[5] << "|" << r[3] << " " << r[4] << " " << r[5] << "|" << b[3] << " " << b[4] << " " << b[5] << "|\n";
+    out << "|" << l[6] << " " << l[7] << " " << l[8] << "|" << f[6] << " " << f[7] << " " << f[8] << "|" << r[6] << " " << r[7] << " " << r[8] << "|" << b[6] << " " << b[7] << " " << b[8] << "|\n";
+    out << "+-----+-----+-----+-----+\n";
+    out << "      |" << d[0] << " " << d[1] << " " << d[2] << "|        \n";
+    out << "      |" << d[3] << " " << d[4] << " " << d[5] << "|        \n";
+    out << "      |" << d[6] << " " << d[7] << " " << d[8] << "|        \n";
+    out << "      +-----+        \n";
     return out;
 }

@@ -35,7 +35,7 @@ public:
     bool operator == (const Dir &d1) const = default;
 };
 
-std::ostream &operator <<(std::ostream &out, Dir &d);
+std::ostream &operator <<(std::ostream &out, Dir &direction);
 
 class Twoside {
 
@@ -91,6 +91,7 @@ public:
 
     Color downside();
 
+    bool placed();
 };
 
 std::ostream &operator <<(std::ostream &out, Twoside a);
@@ -150,6 +151,7 @@ public:
 
     Color downside();
 
+    bool placed();
 };
 
 

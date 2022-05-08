@@ -1,23 +1,37 @@
 #include "details.h"
 
+const Color White = Color::W;
+const Color Red = Color::R;
+const Color Blue = Color::B;
+const Color Orange = Color::O;
+const Color Green = Color::G;
+const Color Yellow = Color::Y;
+
+const direction f = direction::f;
+const direction b = direction::b;
+const direction l = direction::l;
+const direction r = direction::r;
+const direction u = direction::u;
+const direction d = direction::d;
+
 std::ostream &operator<<(std::ostream &out, Color c){
     switch (c) {
-        case(Color::W):
+        case(White):
             out << 'W';
             break;
-        case(Color::B):
+        case(Blue):
             out << 'B';
             break;
-        case(Color::R):
+        case(Red):
             out << 'R';
             break;
-        case(Color::O):
+        case(Orange):
             out << 'O';
             break;
-        case (Color::G):
+        case (Green):
             out << 'G';
             break;
-        case (Color::Y):
+        case (Yellow):
             out << 'Y';
             break;
         case (Color::X):
@@ -35,168 +49,168 @@ Dir::Dir() = default;
 
 void Dir::L(){
     switch (dir) {
-        case (direction::b):
-            dir = direction::u;
+        case (b):
+            dir = u;
             break;
 
-        case (direction::u):
-            dir = direction::f;
+        case (u):
+            dir = f;
             break;
 
-        case(direction::f):
-            dir = direction::d;
+        case(f):
+            dir = d;
             break;
 
-        case(direction::d):
-            dir = direction::b;
+        case(d):
+            dir = b;
             break;
 
-        case (direction::l):
-            dir = direction::l;
+        case (l):
+            dir = l;
             break;
 
-        case (direction::r):
-            dir = direction::r;
+        case (r):
+            dir = r;
             break;
     }
 }
 
 void Dir::R(){
     switch (dir) {
-        case (direction::b):
-            dir = direction::d;
+        case (b):
+            dir = d;
             break;
 
-        case (direction::d):
-            dir = direction::f;
+        case (d):
+            dir = f;
             break;
 
-        case(direction::f):
-            dir = direction::u;
+        case(f):
+            dir = u;
             break;
 
-        case(direction::u):
-            dir = direction::b;
+        case(u):
+            dir = b;
             break;
 
-        case (direction::l):
-            dir = direction::l;
+        case (l):
+            dir = l;
             break;
 
-        case (direction::r):
-            dir = direction::r;
+        case (r):
+            dir = r;
             break;
     }
 }
 
 void Dir::F(){
     switch (dir) {
-        case (direction::l):
-            dir = direction::u;
+        case (l):
+            dir = u;
             break;
 
-        case (direction::u):
-            dir = direction::r;
+        case (u):
+            dir = r;
             break;
 
-        case(direction::r):
-            dir = direction::d;
+        case(r):
+            dir = d;
             break;
 
-        case(direction::d):
-            dir = direction::l;
+        case(d):
+            dir = l;
             break;
 
-        case (direction::b):
-            dir = direction::b;
+        case (b):
+            dir = b;
             break;
 
-        case (direction::f):
-            dir = direction::f;
+        case (f):
+            dir = f;
             break;
     }
 }
 
 void Dir::B(){
     switch (dir) {
-        case (direction::l):
-            dir = direction::d;
+        case (l):
+            dir = d;
             break;
 
-        case (direction::d):
-            dir = direction::r;
+        case (d):
+            dir = r;
             break;
 
-        case(direction::r):
-            dir = direction::u;
+        case(r):
+            dir = u;
             break;
 
-        case(direction::u):
-            dir = direction::l;
+        case(u):
+            dir = l;
             break;
 
-        case (direction::b):
-            dir = direction::b;
+        case (b):
+            dir = b;
             break;
 
-        case (direction::f):
-            dir = direction::f;
+        case (f):
+            dir = f;
             break;
     }
 }
 
 void Dir::U(){
     switch (dir) {
-        case (direction::l):
-            dir = direction::b;
+        case (l):
+            dir = b;
             break;
 
-        case (direction::b):
-            dir = direction::r;
+        case (b):
+            dir = r;
             break;
 
-        case(direction::r):
-            dir = direction::f;
+        case(r):
+            dir = f;
             break;
 
-        case(direction::f):
-            dir = direction::l;
+        case(f):
+            dir = l;
             break;
 
-        case (direction::u):
-            dir = direction::u;
+        case (u):
+            dir = u;
             break;
 
-        case (direction::d):
-            dir = direction::d;
+        case (d):
+            dir = d;
             break;
     }
 }
 
 void Dir::D(){
     switch (dir) {
-        case (direction::l):
-            dir = direction::f;
+        case (l):
+            dir = f;
             break;
 
-        case (direction::f):
-            dir = direction::r;
+        case (f):
+            dir = r;
             break;
 
-        case(direction::r):
-            dir = direction::b;
+        case(r):
+            dir = b;
             break;
 
-        case(direction::b):
-            dir = direction::l;
+        case(b):
+            dir = l;
             break;
 
-        case (direction::u):
-            dir = direction::u;
+        case (u):
+            dir = u;
             break;
 
-        case (direction::d):
-            dir = direction::d;
+        case (d):
+            dir = d;
             break;
     }
 }
@@ -207,29 +221,29 @@ Twoside::Twoside(const Twoside &c) = default;
 
 Twoside &Twoside::operator=(const Twoside &c1) = default;
 
-std::ostream &operator <<(std::ostream &out, Dir &d){
-    switch (d.dir) {
-        case (direction::l):
+std::ostream &operator <<(std::ostream &out, Dir &direction){
+    switch (direction.dir) {
+        case (l):
             out << 'l';
             break;
 
-        case (direction::f):
+        case (f):
             out << 'f';
             break;
 
-        case(direction::r):
+        case(r):
             out << 'r';
             break;
 
-        case(direction::b):
+        case(b):
             out << 'b';
             break;
 
-        case (direction::u):
+        case (u):
             out << 'u';
             break;
 
-        case (direction::d):
+        case (d):
             out << 'd';
             break;
     }
@@ -274,32 +288,32 @@ void Twoside::D() {
 }
 
 bool Twoside::is_l() {
-    return ((dir[0].dir == direction::l) || (dir[1].dir == direction::l));
+    return ((dir[0].dir == l) || (dir[1].dir == l));
 }
 
 bool Twoside::is_r() {
-    return ((dir[0].dir == direction::r) || (dir[1].dir == direction::r));
+    return ((dir[0].dir == r) || (dir[1].dir == r));
 }
 
 bool Twoside::is_f() {
-    return ((dir[0].dir == direction::f) || (dir[1].dir == direction::f));
+    return ((dir[0].dir == f) || (dir[1].dir == f));
 }
 
 bool Twoside::is_b() {
-    return ((dir[0].dir == direction::b) || (dir[1].dir == direction::b));
+    return ((dir[0].dir == b) || (dir[1].dir == b));
 }
 
 bool Twoside::is_u() {
-    return ((dir[0].dir == direction::u) || (dir[1].dir == direction::u));
+    return ((dir[0].dir == u) || (dir[1].dir == u));
 }
 
 bool Twoside::is_d() {
-    return ((dir[0].dir == direction::d) || (dir[1].dir == direction::d));
+    return ((dir[0].dir == d) || (dir[1].dir == d));
 }
 
 Color Twoside::frontside(){
     if (this->is_f()){
-        if (dir[0] == Dir(direction::f)) return color[0];
+        if (dir[0] == Dir(f)) return color[0];
         else return color[1];
     }
     else return Color::X;
@@ -307,7 +321,7 @@ Color Twoside::frontside(){
 
 Color Twoside::backside(){
     if (this->is_b()){
-        if (dir[0] == Dir(direction::b)) return color[0];
+        if (dir[0] == Dir(b)) return color[0];
         else return color[1];
     }
     else return Color::X;
@@ -315,7 +329,7 @@ Color Twoside::backside(){
 
 Color Twoside::leftside(){
     if (this->is_l()){
-        if (dir[0] == Dir(direction::l)) return color[0];
+        if (dir[0] == Dir(l)) return color[0];
         else return color[1];
     }
     else return Color::X;
@@ -323,7 +337,7 @@ Color Twoside::leftside(){
 
 Color Twoside::rightside(){
     if (this->is_r()){
-        if (dir[0] == Dir(direction::r)) return color[0];
+        if (dir[0] == Dir(r)) return color[0];
         else return color[1];
     }
     else return Color::X;
@@ -331,7 +345,7 @@ Color Twoside::rightside(){
 
 Color Twoside::upside(){
     if (this->is_u()){
-        if (dir[0] == Dir(direction::u)) return color[0];
+        if (dir[0] == Dir(u)) return color[0];
         else return color[1];
     }
     else return Color::X;
@@ -339,10 +353,25 @@ Color Twoside::upside(){
 
 Color Twoside::downside(){
     if (this->is_d()){
-        if (dir[0] == Dir(direction::d)) return color[0];
+        if (dir[0] == Dir(d)) return color[0];
         else return color[1];
     }
     else return Color::X;
+}
+
+bool Twoside::placed() {
+    return (((frontside() == White) && (upside() == Blue)) ||
+            ((frontside() == White) && (leftside() == Orange))||
+            ((frontside() == White) && (rightside() == Red))||
+            ((frontside() == White) && (downside() == Green))||
+            ((leftside() == Orange) && (upside() == Blue))||
+            ((rightside() == Red) && (upside() == Blue))||
+            ((leftside() == Orange) && (downside() == Green))||
+            ((rightside() == Red) && (downside() == Green))||
+            ((backside() == Yellow) && (upside() == Blue))||
+            ((backside() == Yellow) && (leftside() == Orange))||
+            ((backside() == Yellow) && (rightside() == Red))||
+            ((backside() == Yellow) && (downside() == Green)));
 }
 
 const Dir *Twoside::get_dir() const{
@@ -355,53 +384,53 @@ const Color *Twoside::get_color() const{
 
 std::ostream &operator <<(std::ostream &out, Twoside a){
     switch (a.color[0]){
-        case (Color::W):
+        case (White):
             std::cout << "((" << a.dir[0] << ", White), ";
             break;
 
-        case (Color::B):
+        case (Blue):
             std::cout << "((" << a.dir[0] << ", Blue), ";
             break;
 
-        case (Color::R):
+        case (Red):
             std::cout << "((" << a.dir[0] << ", Red), ";
             break;
 
-        case (Color::O):
+        case (Orange):
             std::cout << "((" << a.dir[0] << ", Orange), ";
             break;
 
-        case (Color::G):
+        case (Green):
             std::cout << "((" << a.dir[0] << ", Green), ";
             break;
 
-        case (Color::Y):
+        case (Yellow):
             std::cout << "((" << a.dir[0] << ", Yellow), ";
             break;
     }
 
     switch (a.color[1]){
-        case (Color::W):
+        case (White):
             std::cout << "(" << a.dir[1] << ", White))";
             break;
 
-        case (Color::B):
+        case (Blue):
             std::cout << "(" << a.dir[1] << ", Blue))";
             break;
 
-        case (Color::R):
+        case (Red):
             std::cout << "(" << a.dir[1] << ", Red))";
             break;
 
-        case (Color::O):
+        case (Orange):
             std::cout << "(" << a.dir[1] << ", Orange))";
             break;
 
-        case (Color::G):
+        case (Green):
             std::cout << "(" << a.dir[1] << ", Green))";
             break;
 
-        case (Color::Y):
+        case (Yellow):
             std::cout << "(" << a.dir[1] << ", Yellow))";
             break;
     }
@@ -469,33 +498,33 @@ void Angle::D(){
 }
 
 bool Angle::is_l() {
-    return ((dir[0].dir == direction::l) || (dir[1].dir == direction::l) || (dir[2].dir == direction::l));
+    return ((dir[0].dir == l) || (dir[1].dir == l) || (dir[2].dir == l));
 }
 
 bool Angle::is_r() {
-    return ((dir[0].dir == direction::r) || (dir[1].dir == direction::r) || (dir[2].dir == direction::r));
+    return ((dir[0].dir == r) || (dir[1].dir == r) || (dir[2].dir == r));
 }
 
 bool Angle::is_f() {
-    return ((dir[0].dir == direction::f) || (dir[1].dir == direction::f) || (dir[2].dir == direction::f));
+    return ((dir[0].dir == f) || (dir[1].dir == f) || (dir[2].dir == f));
 }
 
 bool Angle::is_b() {
-    return ((dir[0].dir == direction::b) || (dir[1].dir == direction::b) || (dir[2].dir == direction::b));
+    return ((dir[0].dir == b) || (dir[1].dir == b) || (dir[2].dir == b));
 }
 
 bool Angle::is_u() {
-    return ((dir[0].dir == direction::u) || (dir[1].dir == direction::u) || (dir[2].dir == direction::u));
+    return ((dir[0].dir == u) || (dir[1].dir == u) || (dir[2].dir == u));
 }
 
 bool Angle::is_d() {
-    return ((dir[0].dir == direction::d) || (dir[1].dir == direction::d) || (dir[2].dir == direction::d));
+    return ((dir[0].dir == d) || (dir[1].dir == d) || (dir[2].dir == d));
 }
 
 Color Angle::frontside(){
     if (this->is_f()) {
-        if (dir[0] == Dir(direction::f)) return color[0];
-        else if (dir[1] == Dir(direction::f)) return color[1];
+        if (dir[0] == Dir(f)) return color[0];
+        else if (dir[1] == Dir(f)) return color[1];
         else return color[2];
     }
     else return Color::X;
@@ -503,8 +532,8 @@ Color Angle::frontside(){
 
 Color Angle::backside(){
     if (this->is_b()) {
-        if (dir[0] == Dir(direction::b)) return color[0];
-        else if (dir[1] == Dir(direction::b)) return color[1];
+        if (dir[0] == Dir(b)) return color[0];
+        else if (dir[1] == Dir(b)) return color[1];
         else return color[2];
     }
     else return Color::X;
@@ -512,8 +541,8 @@ Color Angle::backside(){
 
 Color Angle::leftside(){
     if (this->is_l()) {
-        if (dir[0] == Dir(direction::l)) return color[0];
-        else if (dir[1] == Dir(direction::l)) return color[1];
+        if (dir[0] == Dir(l)) return color[0];
+        else if (dir[1] == Dir(l)) return color[1];
         else return color[2];
     }
     else return Color::X;
@@ -521,8 +550,8 @@ Color Angle::leftside(){
 
 Color Angle::rightside(){
     if (this->is_r()) {
-        if (dir[0] == Dir(direction::r)) return color[0];
-        else if (dir[1] == Dir(direction::r)) return color[1];
+        if (dir[0] == Dir(r)) return color[0];
+        else if (dir[1] == Dir(r)) return color[1];
         else return color[2];
     }
     else return Color::X;
@@ -530,8 +559,8 @@ Color Angle::rightside(){
 
 Color Angle::upside(){
     if (this->is_u()) {
-        if (dir[0] == Dir(direction::u)) return color[0];
-        else if (dir[1] == Dir(direction::u)) return color[1];
+        if (dir[0] == Dir(u)) return color[0];
+        else if (dir[1] == Dir(u)) return color[1];
         else return color[2];
     }
     else return Color::X;
@@ -539,89 +568,100 @@ Color Angle::upside(){
 
 Color Angle::downside(){
     if (this->is_d()) {
-        if (dir[0] == Dir(direction::d)) return color[0];
-        else if (dir[1] == Dir(direction::d)) return color[1];
+        if (dir[0] == Dir(d)) return color[0];
+        else if (dir[1] == Dir(d)) return color[1];
         else return color[2];
     }
     else return Color::X;
 }
 
+bool Angle::placed(){
+    return (((frontside() == White)&&(upside() == Blue)&&(leftside() == Orange))||
+    ((frontside() == White)&&(upside() == Blue)&&(rightside() == Red))||
+    ((frontside() == White)&&(upside() == Blue)&&(downside() == Green))||
+    ((frontside() == White)&&(downside() == Green)&&(rightside() == Red))||
+    ((backside() == Yellow)&&(upside() == Blue)&&(leftside() == Orange))||
+    ((backside() == Yellow)&&(upside() == Blue)&&(rightside() == Red))||
+    ((backside() == Yellow)&&(upside() == Blue)&&(downside() == Green))||
+    ((backside() == Yellow)&&(downside() == Green)&&(rightside() == Red)));
+}
+
 std::ostream &operator <<(std::ostream &out, Angle a){
 
     switch (a.color[0]){
-        case (Color::W):
+        case (White):
             std::cout << "((" << a.dir[0] << ", White), ";
             break;
 
-        case (Color::B):
+        case (Blue):
             std::cout << "((" << a.dir[0] << ", Blue), ";
             break;
 
-        case (Color::R):
+        case (Red):
             std::cout << "((" << a.dir[0] << ", Red), ";
             break;
 
-        case (Color::O):
+        case (Orange):
             std::cout << "((" << a.dir[0] << ", Orange), ";
             break;
 
-        case (Color::G):
+        case (Green):
             std::cout << "((" << a.dir[0] << ", Green), ";
             break;
 
-        case (Color::Y):
+        case (Yellow):
             std::cout << "((" << a.dir[0] << ", Yellow), ";
             break;
     }
 
     switch (a.color[1]){
-        case (Color::W):
+        case (White):
             std::cout << "(" << a.dir[1] << ", White), ";
             break;
 
-        case (Color::B):
+        case (Blue):
             std::cout << "(" << a.dir[1] << ", Blue), ";
             break;
 
-        case (Color::R):
+        case (Red):
             std::cout << "(" << a.dir[1] << ", Red), ";
             break;
 
-        case (Color::O):
+        case (Orange):
             std::cout << "(" << a.dir[1] << ", Orange), ";
             break;
 
-        case (Color::G):
+        case (Green):
             std::cout << "(" << a.dir[1] << ", Green), ";
             break;
 
-        case (Color::Y):
+        case (Yellow):
             std::cout << "(" << a.dir[1] << ", Yellow), ";
             break;
     }
 
     switch (a.color[2]){
-        case (Color::W):
+        case (White):
             std::cout << "(" << a.dir[2] << ", White))";
             break;
 
-        case (Color::B):
+        case (Blue):
             std::cout << "(" << a.dir[2] << ", Blue))";
             break;
 
-        case (Color::R):
+        case (Red):
             std::cout << "(" << a.dir[2] << ", Red))";
             break;
 
-        case (Color::O):
+        case (Orange):
             std::cout << "(" << a.dir[2] << ", Orange))";
             break;
 
-        case (Color::G):
+        case (Green):
             std::cout << "(" << a.dir[2] << ", Green))";
             break;
 
-        case (Color::Y):
+        case (Yellow):
             std::cout << "(" << a.dir[2] << ", Yellow))";
             break;
     }
