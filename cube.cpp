@@ -818,6 +818,92 @@ void Cube::back_cross_placing() {
     }
 }
 
+void Cube::windmill(){
+    U();
+    rF();
+    B();
+    L();
+    rF();
+    B();
+    D();
+    rF();
+    B();
+    R();
+    rF();
+    B();
+}
+
+void Cube::back_cross_rotating(){
+    if ((!twosides[8].placed()) && (!twosides[9].placed()) && (!twosides[10].placed()) && (!twosides[11].placed())){
+        for (int i = 0; i < 4; i++){
+            windmill();
+            B();
+        }
+        return;
+    }
+
+    if ((!twosides[8].placed()) && (!twosides[9].placed())){
+        windmill();
+        B();
+        windmill();
+        rB();
+        return;
+    }
+
+    if ((!twosides[8].placed()) && (!twosides[10].placed())){
+        windmill();
+        B();
+        B();
+        windmill();
+        B();
+        B();
+        return;
+    }
+
+    if ((!twosides[8].placed()) && (!twosides[11].placed())){
+        windmill();
+        rB();
+        windmill();
+        B();
+        return;
+    }
+
+    if ((!twosides[9].placed()) && (!twosides[10].placed())){
+        B();
+        windmill();
+        B();
+        windmill();
+        B();
+        B();
+        return;
+    }
+
+    if ((!twosides[9].placed()) && (!twosides[11].placed())){
+        B();
+        windmill();
+        B();
+        B();
+        windmill();
+        B();
+        return;
+    }
+
+    if ((!twosides[10].placed()) && (!twosides[11].placed())){
+        B();
+        B();
+        windmill();
+        B();
+        windmill();
+        B();
+        return;
+    }
+}
+
+void Cube::back_cross(){
+    back_cross_placing();
+    back_cross_rotating();
+}
+
 std::ostream &operator<<(std::ostream &out, Cube c) {
     Color *f = c.frontside();
     Color *b = c.backside();

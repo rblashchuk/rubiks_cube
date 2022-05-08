@@ -53,7 +53,7 @@ int main() {
     c.mid_twosides();
     std::cout << c;
 
-    c.back_cross_placing();
+    c.back_cross();
     std::cout << c;
 }
 

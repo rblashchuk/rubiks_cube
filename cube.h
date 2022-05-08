@@ -98,6 +98,12 @@ public:
     void mid_twosides();
 
     void back_cross_placing();
+
+    void back_cross_rotating();
+
+    void windmill();
+
+    void back_cross();
 };
 
 std::ostream &operator<<(std::ostream &out, Cube c);
