@@ -739,6 +739,85 @@ void Cube::mid_twosides() {
     }
 }
 
+void Cube::back_cross_placing() {
+    while (!twosides[8].is_u()) B();
+
+    if((twosides[9].is_r()) && (twosides[10].is_d()) && (twosides[11].is_l())) return;
+
+    if((twosides[9].is_r()) && (twosides[10].is_l()) && (twosides[11].is_d())){
+        B();
+        rR();
+        B();
+        B();
+        R();
+        B();
+        rR();
+        B();
+        R();
+        return;
+    }
+
+    if((twosides[9].is_d()) && (twosides[10].is_r()) && (twosides[11].is_l())){
+        B();
+        rU();
+        B();
+        B();
+        U();
+        B();
+        rU();
+        B();
+        U();
+        return;
+    }
+
+    if((twosides[9].is_d()) && (twosides[10].is_l()) && (twosides[11].is_r())){
+        B();
+        B();
+        rD();
+        B();
+        B();
+        D();
+        B();
+        rD();
+        B();
+        D();
+        return;
+    }
+
+    if((twosides[9].is_l()) && (twosides[10].is_r()) && (twosides[11].is_d())){
+        rL();
+        B();
+        B();
+        L();
+        B();
+        rL();
+        B();
+        L();
+        return;
+    }
+
+    if((twosides[9].is_l()) && (twosides[10].is_d()) && (twosides[11].is_r())){
+        rL();
+        B();
+        B();
+        L();
+        B();
+        rL();
+        B();
+        L();
+        B();
+        rR();
+        B();
+        B();
+        R();
+        B();
+        rR();
+        B();
+        R();
+        return;
+    }
+}
+
 std::ostream &operator<<(std::ostream &out, Cube c) {
     Color *f = c.frontside();
     Color *b = c.backside();
