@@ -35,12 +35,22 @@ int main() {
     c.D();
     c.B();
     c.R();
+    c.rD();
+    c.B();
+    c.rR();
+    c.rL();
+    c.D();
+    c.B();
+
     std::cout << c;
 
     c.cross();
     std::cout << c;
 
     c.front_angles();
+    std::cout << c;
+
+    c.mid_twosides();
     std::cout << c;
 }
 

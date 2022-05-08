@@ -578,6 +578,167 @@ void Cube::front_angles() {
     }
 }
 
+void Cube::mid_twosides() {
+    for (int i = 0; i < 12; i++){
+        if (twosides[i].is_f()) continue;
+        if ((!twosides[i].is_b()) && (twosides[i].placed())) continue;
+        if (twosides[i].color[1] == Yellow) continue;
+
+        if (twosides[i].is_b()){
+            while(!twosides[i].is_u()) B();
+
+            if((twosides[i].upside() == Blue) && (twosides[i].backside() == Orange)){
+                rB();
+                rL();
+                B();
+                L();
+                B();
+                U();
+                rB();
+                rU();
+                continue;
+            }
+
+            if((twosides[i].upside() == Orange) && (twosides[i].backside() == Blue)){
+                B();
+                B();
+                U();
+                rB();
+                rU();
+                rB();
+                rL();
+                B();
+                L();
+                continue;
+            }
+
+            if((twosides[i].upside() == Blue) && (twosides[i].backside() == Red)){
+                B();
+                R();
+                rB();
+                rR();
+                rB();
+                rU();
+                B();
+                U();
+                continue;
+            }
+
+            if((twosides[i].upside() == Red) && (twosides[i].backside() == Blue)){
+                B();
+                B();
+                rU();
+                B();
+                U();
+                B();
+                R();
+                rB();
+                rR();
+                continue;
+            }
+
+            if((twosides[i].upside() == Green) && (twosides[i].backside() == Red)){
+                B();
+                rR();
+                B();
+                R();
+                B();
+                D();
+                rB();
+                rD();
+                continue;
+            }
+
+            if((twosides[i].upside() == Red) && (twosides[i].backside() == Green)){
+                D();
+                rB();
+                rD();
+                rB();
+                rR();
+                B();
+                R();
+                continue;
+            }
+
+            if((twosides[i].upside() == Green) && (twosides[i].backside() == Orange)){
+                rB();
+                L();
+                rB();
+                rL();
+                rB();
+                rD();
+                B();
+                D();
+                continue;
+            }
+
+            if((twosides[i].upside() == Orange) && (twosides[i].backside() == Green)){
+                rD();
+                B();
+                D();
+                B();
+                L();
+                rB();
+                rL();
+                continue;
+            }
+        }
+        else {
+            if ((twosides[i].is_u()) && (twosides[i].is_l())){
+                rB();
+                rL();
+                B();
+                L();
+                B();
+                U();
+                rB();
+                rU();
+                i--;
+                continue;
+            }
+
+            if ((twosides[i].is_u()) && (twosides[i].is_r())){
+                B();
+                R();
+                rB();
+                rR();
+                rB();
+                rU();
+                B();
+                U();
+                i--;
+                continue;
+            }
+
+            if ((twosides[i].is_d()) && (twosides[i].is_r())){
+                B();
+                D();
+                rB();
+                rD();
+                rB();
+                rR();
+                B();
+                R();
+                i--;
+                continue;
+            }
+
+            if ((twosides[i].is_d()) && (twosides[i].is_l())){
+                rB();
+                rD();
+                B();
+                D();
+                B();
+                L();
+                rB();
+                rL();
+                i--;
+                continue;
+            }
+        }
+    }
+}
+
 std::ostream &operator<<(std::ostream &out, Cube c) {
     Color *f = c.frontside();
     Color *b = c.backside();
