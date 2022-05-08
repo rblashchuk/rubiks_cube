@@ -92,6 +92,8 @@ public:
 
 
     void cross();
+
+    void front_angles();
 };
 
 std::ostream &operator<<(std::ostream &out, Cube c);

@@ -36,10 +36,12 @@ int main() {
     c.B();
     c.R();
     std::cout << c;
-    c.cross();
 
+    c.cross();
     std::cout << c;
 
+    c.front_angles();
+    std::cout << c;
 }
 
 

@@ -21,10 +21,10 @@ Cube &Cube::operator=(const Cube &c1) = default;
 
 Cube::Cube() : angles{Angle()}, twosides{Twoside()} {
 
-    angles[0] = Angle(White, Orange, Blue, f, l, u);
+    angles[0] = Angle(White, Green, Orange, f, d, l);
     angles[1] = Angle(White, Blue, Red, f, u, r);
     angles[2] = Angle(White, Red, Green, f, r, d);
-    angles[3] = Angle(White, Green, Orange, f, d, l);
+    angles[3] = Angle(White, Orange, Blue, f, l, u);
     angles[4] = Angle(Yellow, Blue, Orange, b, u, l);
     angles[5] = Angle(Yellow, Red, Blue, b, r, u);
     angles[6] = Angle(Yellow, Green, Red, b, d, r);
@@ -478,7 +478,104 @@ void Cube::cross() {
 }
 
 void Cube::front_angles() {
+    for (int i = 0; i < 8; i++){
+        if (angles[i].color[0] != White) continue;
+        else{
+            if (angles[i].placed()) continue;
+            else{
+                if (angles[i].is_f()){
+                    if  ((angles[i].is_u()) && (angles[i].is_l())){
+                        rL();
+                        rB();
+                        L();
+                        i--;
+                        continue;
+                    }
+                    if  ((angles[i].is_u()) && (angles[i].is_r())){
+                        R();
+                        B();
+                        rR();
+                        i--;
+                        continue;
+                    }
+                    if  ((angles[i].is_d()) && (angles[i].is_l())){
+                        L();
+                        rB();
+                        rL();
+                        i--;
+                        continue;
+                    }
+                    if  ((angles[i].is_d()) && (angles[i].is_r())){
+                        rR();
+                        B();
+                        R();
+                        i--;
+                        continue;
+                    }
+                }
+                else{
+                    if (angles[i].backside() == White){
+                        while (!((angles[i].is_l()) && (angles[i].is_u()))) B();
+                        rL();
+                        B();
+                        B();
+                        L();
+                        i--;
+                        continue;
+                    }
+                    else{
+                        while (!((angles[i].is_l()) && (angles[i].is_u()))) B();
+                        if(angles[i].upside() == White){
+                            if((angles[i].leftside() == Blue) && (angles[i].backside() == Red)) {
+                                B();
+                                B();
+                                rU();
+                                B();
+                                U();
+                                continue;
+                            }
 
+                            if((angles[i].leftside() == Orange) && (angles[i].backside() == Blue)) {
+                                rB();
+                                rL();
+                                B();
+                                L();
+                                continue;
+                            }
+
+                            if((angles[i].leftside() == Red) && (angles[i].backside() == Green)) {
+                                B();
+                                B();
+                                D();
+                                B();
+                                rD();
+                                continue;
+                            }
+
+                            if((angles[i].leftside() == Green) && (angles[i].backside() == Orange)) {
+                                rD();
+                                B();
+                                D();
+                                continue;
+                            }
+                        }
+                        else {
+                            rL();
+                            rB();
+                            L();
+                            B();
+                            rL();
+                            rB();
+                            L();
+                            B();
+                            i--;
+                            continue;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 std::ostream &operator<<(std::ostream &out, Cube c) {
