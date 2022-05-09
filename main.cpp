@@ -43,7 +43,14 @@ int main() {
     c.rR();
 
 
+    c.dump("test.txt");
+
+    Cube x = Cube();
+    x.load("test.txt");
+
     std::cout << "UNSOLVED:\n" << c << "_____\n";
+
+    std::cout << "LOADED FROM FILE:\n" << x << "_____\n";
 
     c.set_logging(true);
     c.cross();

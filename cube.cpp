@@ -1,3 +1,5 @@
+#include <iostream>
+#include <fstream>
 #include "details.h"
 #include "cube.h"
 
@@ -18,6 +20,18 @@ const direction d = direction::d;
 Cube::Cube(const Cube &c) = default;
 
 Cube &Cube::operator=(const Cube &c1) = default;
+
+bool Cube::operator==(const Cube &c1) {
+    for (int i = 0; i < 8; i++){
+        if (!(angles[i] == c1.angles[i])) return false;
+    }
+
+    for (int i = 0; i < 12; i++){
+        if (!(twosides[i] == c1.twosides[i])) return false;
+    }
+
+    return true;
+}
 
 Cube::Cube() : angles{Angle()}, twosides{Twoside()}, log{} {
 
@@ -45,6 +59,32 @@ Cube::Cube() : angles{Angle()}, twosides{Twoside()}, log{} {
 
     log = "";
     log_flag = false;
+}
+
+void Cube::load(const std::string& filename){
+    std::ifstream in;
+    in.open(filename);
+    for (int i = 0; i < 8; i++){
+        in >> angles[i].dir[0] >> angles[i].dir[1] >> angles[i].dir[2];
+    }
+
+    for (int i = 0; i < 12; i++){
+        in >> twosides[i].dir[0] >> twosides[i].dir[1];
+    }
+    in.close();
+}
+
+void Cube::dump(const std::string& filename){
+    std::ofstream out;
+    out.open(filename);
+    for (int i = 0; i < 8; i++){
+        out << angles[i].dir[0] << angles[i].dir[1] << angles[i].dir[2] << "\n";
+    }
+
+    for (int i = 0; i < 12; i++){
+        out << twosides[i].dir[0] << twosides[i].dir[1] << "\n";
+    }
+    out.close();
 }
 
 void Cube::set_logging(bool flag){

@@ -15,7 +15,10 @@ public:
 
     Cube &operator=(const Cube &c1);
 
+    bool operator==(const Cube &c1);
+
     Cube();
+
     void L();
 
     void R();
@@ -120,6 +123,10 @@ public:
     void set_logging(bool flag);
 
     void reset_log();
+
+    void load(const std::string& filename);
+
+    void dump(const std::string &filename);
 };
 
 std::ostream &operator<<(std::ostream &out, Cube c);

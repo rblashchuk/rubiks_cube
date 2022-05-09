@@ -11,6 +11,7 @@ enum class direction {f, b, r, l, u, d};
 enum class Color {W, B, R, O, G, Y, X};
 
 std::ostream &operator<<(std::ostream &out, Color c);
+std::istream &operator >>(std::istream &in, direction &a);
 
 class Dir {
 public:
@@ -47,7 +48,8 @@ public:
     void rD();
 };
 
-std::ostream &operator <<(std::ostream &out, Dir &direction);
+std::ostream &operator <<(std::ostream &out, Dir &a);
+std::istream &operator >>(std::istream &in, Dir &a);
 
 class Twoside {
 
@@ -57,15 +59,13 @@ public:
 
     Twoside();
 
+    bool operator==(const Twoside &c1) const = default;
+
     Twoside(const Twoside &c);
 
     Twoside &operator=(const Twoside &c1);
 
     Twoside(const Color &c1, const Color &c2, const direction &d1, const direction &d2);
-
-    const Dir *get_dir() const;
-
-    const Color *get_color() const;
 
     void L();
 
@@ -132,6 +132,8 @@ public:
     Angle(const Angle &c);
 
     Angle &operator=(const Angle &c1);
+
+    bool operator==(const Angle &c1) const = default;
 
     Angle(const Color &c1, const Color &c2, const Color &c3, const direction &d1, const direction &d2, const direction &d3);
 
