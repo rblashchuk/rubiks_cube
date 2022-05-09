@@ -104,6 +104,16 @@ public:
     void windmill();
 
     void back_cross();
+
+    void back_angles_placing();
+
+    void g_twist();
+
+    void back_angles_rotating();
+
+    void rotate();
+
+    void back_angles();
 };
 
 std::ostream &operator<<(std::ostream &out, Cube c);

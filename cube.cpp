@@ -904,6 +904,110 @@ void Cube::back_cross(){
     back_cross_rotating();
 }
 
+void Cube::g_twist(){
+    rR();
+    rU();
+    rL();
+    U();
+    R();
+    rU();
+    L();
+    U();
+}
+
+void Cube::back_angles_placing(){
+    if ((angles[4].twisted()) && (angles[5].twisted()) && (angles[6].twisted()) && (angles[7].twisted())) return;
+
+    if ((!angles[4].twisted()) && (!angles[5].twisted()) && (!angles[6].twisted()) && (!angles[7].twisted())) g_twist();
+
+    if ((!angles[4].twisted()) && (!angles[5].twisted()) && (angles[6].twisted()) && (!angles[7].twisted())){
+        while((!angles[4].twisted())) g_twist();
+        return;
+    }
+
+    if ((!angles[4].twisted()) && (!angles[5].twisted()) && (!angles[6].twisted()) && (angles[7].twisted())){
+        while((!angles[4].twisted())) {
+            rB();
+            g_twist();
+            B();
+        }
+        return;
+    }
+
+    if ((angles[4].twisted()) && (!angles[5].twisted()) && (!angles[6].twisted()) && (!angles[7].twisted())){
+        while((!angles[5].twisted())) {
+            B();
+            g_twist();
+            rB();
+        }
+        return;
+    }
+
+    if ((!angles[4].twisted()) && (angles[5].twisted()) && (!angles[6].twisted()) && (!angles[7].twisted())) {
+        while ((!angles[5].twisted())) {
+            B();
+            B();
+            g_twist();
+            B();
+            B();
+        }
+        return;
+    }
+
+    if ((angles[4].twisted()) && (!angles[5].twisted()) && (!angles[6].twisted()) && (angles[7].twisted())) {
+        while ((!angles[5].twisted())) {
+            B();
+            B();
+            g_twist();
+            B();
+            B();
+        }
+        return;
+    }
+}
+
+void Cube::rotate(){
+    rL();
+    U();
+    L();
+    rU();
+    rL();
+    U();
+    L();
+    rU();
+}
+
+void Cube::back_angles_rotating(){
+    while (!(angles[4].placed())) {
+        rotate();
+    }
+
+    while (!(angles[5].placed())) {
+        B();
+        rotate();
+        rB();
+    }
+
+    while (!(angles[6].placed())) {
+        B();
+        B();
+        rotate();
+        B();
+        B();
+    }
+
+    while (!(angles[7].placed())) {
+        rB();
+        rotate();
+        B();
+    }
+}
+
+void Cube::back_angles(){
+    back_angles_placing();
+    back_angles_rotating();
+}
+
 std::ostream &operator<<(std::ostream &out, Cube c) {
     Color *f = c.frontside();
     Color *b = c.backside();

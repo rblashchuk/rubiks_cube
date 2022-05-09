@@ -27,7 +27,7 @@ int main() {
     std::cout << b << "\n";
 
     Cube c = Cube();
-    std::cout << c;
+    std::cout << "INIT CUBE:\n" << c << "_____\n";
     c.R();
     c.B();
     c.U();
@@ -42,19 +42,22 @@ int main() {
     c.D();
     c.B();
 
-    std::cout << c;
+    std::cout << "UNSOLVED:\n" << c << "_____\n";
 
     c.cross();
-    std::cout << c;
+    std::cout << "CROSS:\n" << c << "_____\n";
 
     c.front_angles();
-    std::cout << c;
+    std::cout << "FRONT ANGLES:\n" << c << "_____\n";
 
     c.mid_twosides();
-    std::cout << c;
+    std::cout << "MID TWOSIDES:\n" << c << "_____\n";
 
     c.back_cross();
-    std::cout << c;
+    std::cout << "BACK CROSS:\n" << c << "_____\n";
+
+    c.back_angles();
+    std::cout << "SOLVED:\n" << c << "_____\n";
 }
 
 
