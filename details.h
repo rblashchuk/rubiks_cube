@@ -33,6 +33,18 @@ public:
     void D();
 
     bool operator == (const Dir &d1) const = default;
+
+    void rL();
+
+    void rR();
+
+    void rF();
+
+    void rB();
+
+    void rU();
+
+    void rD();
 };
 
 std::ostream &operator <<(std::ostream &out, Dir &direction);
@@ -92,6 +104,18 @@ public:
     Color downside();
 
     bool placed();
+
+    void rL();
+
+    void rR();
+
+    void rF();
+
+    void rB();
+
+    void rU();
+
+    void rD();
 };
 
 std::ostream &operator <<(std::ostream &out, Twoside a);
@@ -152,6 +176,20 @@ public:
     Color downside();
 
     bool placed();
+
+    bool twisted();
+
+    void rL();
+
+    void rR();
+
+    void rF();
+
+    void rB();
+
+    void rU();
+
+    void rD();
 };
 
 

@@ -215,6 +215,174 @@ void Dir::D(){
     }
 }
 
+void Dir::rL(){
+    switch (dir) {
+        case (u):
+            dir = b;
+            break;
+
+        case (f):
+            dir = u;
+            break;
+
+        case(d):
+            dir = f;
+            break;
+
+        case(b):
+            dir = d;
+            break;
+
+        case (l):
+            dir = l;
+            break;
+
+        case (r):
+            dir = r;
+            break;
+    }
+}
+
+void Dir::rR(){
+    switch (dir) {
+        case (d):
+            dir = b;
+            break;
+
+        case (f):
+            dir = d;
+            break;
+
+        case(u):
+            dir = f;
+            break;
+
+        case(b):
+            dir = u;
+            break;
+
+        case (l):
+            dir = l;
+            break;
+
+        case (r):
+            dir = r;
+            break;
+    }
+}
+
+void Dir::rF(){
+    switch (dir) {
+        case (u):
+            dir = l;
+            break;
+
+        case (r):
+            dir = u;
+            break;
+
+        case(d):
+            dir = r;
+            break;
+
+        case(l):
+            dir = d;
+            break;
+
+        case (b):
+            dir = b;
+            break;
+
+        case (f):
+            dir = f;
+            break;
+    }
+}
+
+void Dir::rB(){
+    switch (dir) {
+        case (d):
+            dir = l;
+            break;
+
+        case (r):
+            dir = d;
+            break;
+
+        case(u):
+            dir = r;
+            break;
+
+        case(l):
+            dir = u;
+            break;
+
+        case (b):
+            dir = b;
+            break;
+
+        case (f):
+            dir = f;
+            break;
+    }
+}
+
+void Dir::rU(){
+    switch (dir) {
+        case (b):
+            dir = l;
+            break;
+
+        case (r):
+            dir = b;
+            break;
+
+        case(f):
+            dir = r;
+            break;
+
+        case(l):
+            dir = f;
+            break;
+
+        case (u):
+            dir = u;
+            break;
+
+        case (d):
+            dir = d;
+            break;
+    }
+}
+
+void Dir::rD(){
+    switch (dir) {
+        case (f):
+            dir = l;
+            break;
+
+        case (r):
+            dir = f;
+            break;
+
+        case(b):
+            dir = r;
+            break;
+
+        case(l):
+            dir = b;
+            break;
+
+        case (u):
+            dir = u;
+            break;
+
+        case (d):
+            dir = d;
+            break;
+    }
+}
+
 Twoside::Twoside() = default;
 
 Twoside::Twoside(const Twoside &c) = default;
@@ -285,6 +453,36 @@ void Twoside::U() {
 void Twoside::D() {
     dir[0].D();
     dir[1].D();
+}
+
+void Twoside::rL() {
+    dir[0].rL();
+    dir[1].rL();
+}
+
+void Twoside::rR() {
+    dir[0].rR();
+    dir[1].rR();
+}
+
+void Twoside::rF() {
+    dir[0].rF();
+    dir[1].rF();
+}
+
+void Twoside::rB() {
+    dir[0].rB();
+    dir[1].rB();
+}
+
+void Twoside::rU() {
+    dir[0].rU();
+    dir[1].rU();
+}
+
+void Twoside::rD() {
+    dir[0].rD();
+    dir[1].rD();
 }
 
 bool Twoside::is_l() {
@@ -453,13 +651,6 @@ Angle::Angle(const Color &c1, const Color &c2, const Color &c3, const direction 
     dir[2] = Dir(d3);
 }
 
-const Dir *Angle::get_dir() const{
-    return dir;
-}
-
-const Color *Angle::get_color() const{
-    return color;
-}
 
 void Angle::L(){
     dir[0].L();
@@ -495,6 +686,43 @@ void Angle::D(){
     dir[0].D();
     dir[1].D();
     dir[2].D();
+}
+
+
+void Angle::rL(){
+    dir[0].rL();
+    dir[1].rL();
+    dir[2].rL();
+}
+
+void Angle::rR(){
+    dir[0].rR();
+    dir[1].rR();
+    dir[2].rR();
+}
+
+void Angle::rF(){
+    dir[0].rF();
+    dir[1].rF();
+    dir[2].rF();
+}
+
+void Angle::rB(){
+    dir[0].rB();
+    dir[1].rB();
+    dir[2].rB();
+}
+
+void Angle::rU(){
+    dir[0].rU();
+    dir[1].rU();
+    dir[2].rU();
+}
+
+void Angle::rD(){
+    dir[0].rD();
+    dir[1].rD();
+    dir[2].rD();
 }
 
 bool Angle::is_l() {

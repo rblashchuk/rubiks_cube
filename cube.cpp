@@ -19,7 +19,7 @@ Cube::Cube(const Cube &c) = default;
 
 Cube &Cube::operator=(const Cube &c1) = default;
 
-Cube::Cube() : angles{Angle()}, twosides{Twoside()} {
+Cube::Cube() : angles{Angle()}, twosides{Twoside()}, log{} {
 
     angles[0] = Angle(White, Green, Orange, f, d, l);
     angles[1] = Angle(White, Blue, Red, f, u, r);
@@ -43,6 +43,20 @@ Cube::Cube() : angles{Angle()}, twosides{Twoside()} {
     twosides[10] = Twoside(Green, Yellow, d, b);
     twosides[11] = Twoside(Orange, Yellow, l, b);
 
+    log = "";
+    log_flag = false;
+}
+
+void Cube::set_logging(bool flag){
+    if (flag){
+        log_flag = true;
+        log = "";
+    }
+    else log_flag = false;
+}
+
+void Cube::reset_log(){
+    log = "";
 }
 
 void Cube::L() {
@@ -53,6 +67,8 @@ void Cube::L() {
     for (auto &twoside: twosides) {
         if (twoside.is_l()) twoside.L();
     }
+
+    if (log_flag) log.append("L");
 }
 
 void Cube::R() {
@@ -63,6 +79,8 @@ void Cube::R() {
     for (auto &twoside: twosides) {
         if (twoside.is_r()) twoside.R();
     }
+
+    if (log_flag) log.append("R");
 }
 
 void Cube::F() {
@@ -73,6 +91,9 @@ void Cube::F() {
     for (auto &twoside: twosides) {
         if (twoside.is_f()) twoside.F();
     }
+
+    if (log_flag) log.append("F");
+
 }
 
 void Cube::B() {
@@ -83,6 +104,7 @@ void Cube::B() {
     for (auto &twoside: twosides) {
         if (twoside.is_b()) twoside.B();
     }
+    if (log_flag) log.append("B");
 }
 
 void Cube::U() {
@@ -93,6 +115,7 @@ void Cube::U() {
     for (auto &twoside: twosides) {
         if (twoside.is_u()) twoside.U();
     }
+    if (log_flag) log.append("U");
 }
 
 void Cube::D() {
@@ -103,42 +126,79 @@ void Cube::D() {
     for (auto &twoside: twosides) {
         if (twoside.is_d()) twoside.D();
     }
+    if (log_flag) log.append("D");
 }
 
 void Cube::rL(){
-    L();
-    L();
-    L();
+    for (auto &angle: angles) {
+        if (angle.is_l()) angle.rL();
+    }
+
+    for (auto &twoside: twosides) {
+        if (twoside.is_l()) twoside.rL();
+    }
+
+    if (log_flag) log.append("rL");
 }
 
 void Cube::rR(){
-    R();
-    R();
-    R();
+    for (auto &angle: angles) {
+        if (angle.is_l()) angle.rR();
+    }
+
+    for (auto &twoside: twosides) {
+        if (twoside.is_l()) twoside.rR();
+    }
+
+    if (log_flag) log.append("rR");
 }
 
 void Cube::rF(){
-    F();
-    F();
-    F();
+    for (auto &angle: angles) {
+        if (angle.is_l()) angle.rF();
+    }
+
+    for (auto &twoside: twosides) {
+        if (twoside.is_l()) twoside.rF();
+    }
+
+    if (log_flag) log.append("rF");
 }
 
 void Cube::rB(){
-    B();
-    B();
-    B();
+    for (auto &angle: angles) {
+        if (angle.is_l()) angle.rB();
+    }
+
+    for (auto &twoside: twosides) {
+        if (twoside.is_l()) twoside.rB();
+    }
+
+    if (log_flag) log.append("rB");
 }
 
 void Cube::rU(){
-    U();
-    U();
-    U();
+    for (auto &angle: angles) {
+        if (angle.is_l()) angle.rU();
+    }
+
+    for (auto &twoside: twosides) {
+        if (twoside.is_l()) twoside.rU();
+    }
+
+    if (log_flag) log.append("rU");
 }
 
 void Cube::rD(){
-    D();
-    D();
-    D();
+    for (auto &angle: angles) {
+        if (angle.is_l()) angle.rD();
+    }
+
+    for (auto &twoside: twosides) {
+        if (twoside.is_l()) twoside.rD();
+    }
+
+    if (log_flag) log.append("rD");
 }
 
 Angle Cube::FLU() {

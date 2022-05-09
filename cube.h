@@ -8,6 +8,8 @@ class Cube {
 public:
     Twoside twosides[12];
     Angle angles[8];
+    std::string log;
+    bool log_flag;
 
     Cube(const Cube &c);
 
@@ -114,6 +116,10 @@ public:
     void rotate();
 
     void back_angles();
+
+    void set_logging(bool flag);
+
+    void reset_log();
 };
 
 std::ostream &operator<<(std::ostream &out, Cube c);
