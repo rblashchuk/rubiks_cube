@@ -582,8 +582,17 @@ bool Angle::placed(){
     ((frontside() == White)&&(downside() == Green)&&(rightside() == Red))||
     ((backside() == Yellow)&&(upside() == Blue)&&(leftside() == Orange))||
     ((backside() == Yellow)&&(upside() == Blue)&&(rightside() == Red))||
-    ((backside() == Yellow)&&(upside() == Blue)&&(downside() == Green))||
+    ((backside() == Yellow)&&(leftside() == Orange)&&(downside() == Green))||
     ((backside() == Yellow)&&(downside() == Green)&&(rightside() == Red)));
+}
+
+bool Angle::twisted(){
+    if (placed()) return true;
+    else return (((color[0] == Yellow) && (color[1] == Blue) && (color[2] == Orange) && (is_b()) && (is_u()) && (is_l())) ||
+                 ((color[0] == Yellow) && (color[1] == Red) && (color[2] == Blue) && (is_b()) && (is_r()) && (is_u())) ||
+                 ((color[0] == Yellow) && (color[1] == Green) && (color[2] == Red) && (is_b()) && (is_d()) && (is_r())) ||
+                 ((color[0] == Yellow) && (color[1] == Orange) && (color[2] == Green) && (is_b()) && (is_l()) && (is_d())));
+
 }
 
 std::ostream &operator <<(std::ostream &out, Angle a){
