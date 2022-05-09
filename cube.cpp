@@ -143,11 +143,11 @@ void Cube::rL(){
 
 void Cube::rR(){
     for (auto &angle: angles) {
-        if (angle.is_l()) angle.rR();
+        if (angle.is_r()) angle.rR();
     }
 
     for (auto &twoside: twosides) {
-        if (twoside.is_l()) twoside.rR();
+        if (twoside.is_r()) twoside.rR();
     }
 
     if (log_flag) log.append("rR");
@@ -155,11 +155,11 @@ void Cube::rR(){
 
 void Cube::rF(){
     for (auto &angle: angles) {
-        if (angle.is_l()) angle.rF();
+        if (angle.is_f()) angle.rF();
     }
 
     for (auto &twoside: twosides) {
-        if (twoside.is_l()) twoside.rF();
+        if (twoside.is_f()) twoside.rF();
     }
 
     if (log_flag) log.append("rF");
@@ -167,11 +167,11 @@ void Cube::rF(){
 
 void Cube::rB(){
     for (auto &angle: angles) {
-        if (angle.is_l()) angle.rB();
+        if (angle.is_b()) angle.rB();
     }
 
     for (auto &twoside: twosides) {
-        if (twoside.is_l()) twoside.rB();
+        if (twoside.is_b()) twoside.rB();
     }
 
     if (log_flag) log.append("rB");
@@ -179,11 +179,11 @@ void Cube::rB(){
 
 void Cube::rU(){
     for (auto &angle: angles) {
-        if (angle.is_l()) angle.rU();
+        if (angle.is_u()) angle.rU();
     }
 
     for (auto &twoside: twosides) {
-        if (twoside.is_l()) twoside.rU();
+        if (twoside.is_u()) twoside.rU();
     }
 
     if (log_flag) log.append("rU");
@@ -191,11 +191,11 @@ void Cube::rU(){
 
 void Cube::rD(){
     for (auto &angle: angles) {
-        if (angle.is_l()) angle.rD();
+        if (angle.is_d()) angle.rD();
     }
 
     for (auto &twoside: twosides) {
-        if (twoside.is_l()) twoside.rD();
+        if (twoside.is_d()) twoside.rD();
     }
 
     if (log_flag) log.append("rD");
@@ -406,7 +406,13 @@ Color *Cube::downside() {
 }
 
 void Cube::cross() {
-    for (int i = 0; i < 12; i++) {
+    for (int i = 0, j = 0; j < 1; i++) {
+
+        if (i == 11){
+            i = 0;
+            j++;
+        }
+
         if (twosides[i].color[0] == White) {
             if (twosides[i].is_f()) {
                 if (twosides[i].placed()) {
@@ -978,18 +984,22 @@ void Cube::g_twist(){
 void Cube::back_angles_placing(){
     if ((angles[4].twisted()) && (angles[5].twisted()) && (angles[6].twisted()) && (angles[7].twisted())) return;
 
-    if ((!angles[4].twisted()) && (!angles[5].twisted()) && (!angles[6].twisted()) && (!angles[7].twisted())) g_twist();
+    if ((!angles[4].twisted()) && (!angles[5].twisted()) && (!angles[6].twisted()) && (!angles[7].twisted())) {
+        g_twist();
+    }
 
     if ((!angles[4].twisted()) && (!angles[5].twisted()) && (angles[6].twisted()) && (!angles[7].twisted())){
-        while((!angles[4].twisted())) g_twist();
+        while((!angles[4].twisted())) {
+            rB();
+            g_twist();
+            B();
+        }
         return;
     }
 
     if ((!angles[4].twisted()) && (!angles[5].twisted()) && (!angles[6].twisted()) && (angles[7].twisted())){
         while((!angles[4].twisted())) {
-            rB();
             g_twist();
-            B();
         }
         return;
     }

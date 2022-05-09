@@ -15,6 +15,7 @@ int main() {
     a.L();
     a.F();
     a.F();
+    a.rR();
     std::cout << a << "\n";
 
     std::cout << b << "\n";
@@ -29,21 +30,22 @@ int main() {
     Cube c = Cube();
     std::cout << "INIT CUBE:\n" << c << "_____\n";
     c.R();
+    c.rU();
     c.B();
     c.U();
-    c.L();
-    c.D();
-    c.B();
-    c.R();
-    c.rD();
-    c.B();
+    c.F();
     c.rR();
-    c.rL();
-    c.D();
-    c.B();
+    c.R();
+    c.L();
+    c.F();
+    c.L();
+    c.U();
+    c.rR();
+
 
     std::cout << "UNSOLVED:\n" << c << "_____\n";
 
+    c.set_logging(true);
     c.cross();
     std::cout << "CROSS:\n" << c << "_____\n";
 
@@ -58,6 +60,8 @@ int main() {
 
     c.back_angles();
     std::cout << "SOLVED:\n" << c << "_____\n";
+
+    std::cout << c.log;
 }
 
 
