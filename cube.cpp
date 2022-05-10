@@ -21,12 +21,12 @@ Cube::Cube(const Cube &c) = default;
 
 Cube &Cube::operator=(const Cube &c1) = default;
 
-bool Cube::operator==(const Cube &c1) const{
-    for (int i = 0; i < 8; i++){
+bool Cube::operator==(const Cube &c1) const {
+    for (int i = 0; i < 8; i++) {
         if (!(angles[i] == c1.angles[i])) return false;
     }
 
-    for (int i = 0; i < 12; i++){
+    for (int i = 0; i < 12; i++) {
         if (!(twosides[i] == c1.twosides[i])) return false;
     }
 
@@ -61,14 +61,14 @@ Cube::Cube() : angles{Angle()}, twosides{Twoside()}, log{} {
     log_flag = false;
 }
 
-void Cube::load(const std::string& filename){
+void Cube::load(const std::string &filename) {
     std::ifstream in;
     in.open(filename);
-    for (int i = 0; i < 8; i++){
+    for (int i = 0; i < 8; i++) {
         in >> angles[i].dir[0] >> angles[i].dir[1] >> angles[i].dir[2];
     }
 
-    for (int i = 0; i < 12; i++){
+    for (int i = 0; i < 12; i++) {
         in >> twosides[i].dir[0] >> twosides[i].dir[1];
     }
     in >> log;
@@ -82,30 +82,29 @@ void Cube::load(const std::string& filename){
     in.close();
 }
 
-void Cube::dump(const std::string& filename){
+void Cube::dump(const std::string &filename) {
     std::ofstream out;
     out.open(filename);
-    for (int i = 0; i < 8; i++){
+    for (int i = 0; i < 8; i++) {
         out << angles[i].dir[0] << angles[i].dir[1] << angles[i].dir[2] << "\n";
     }
 
-    for (int i = 0; i < 12; i++){
+    for (int i = 0; i < 12; i++) {
         out << twosides[i].dir[0] << twosides[i].dir[1] << "\n";
     }
     out << ">>" << log << "\n";
-    log_flag ? out << 1 << "\n": out << 0 << "\n";
+    log_flag ? out << 1 << "\n" : out << 0 << "\n";
     out.close();
 }
 
-void Cube::set_logging(bool flag){
-    if (flag){
+void Cube::set_logging(bool flag) {
+    if (flag) {
         log_flag = true;
         log = "";
-    }
-    else log_flag = false;
+    } else log_flag = false;
 }
 
-void Cube::reset_log(){
+void Cube::reset_log() {
     log = "";
 }
 
@@ -179,7 +178,7 @@ void Cube::D() {
     if (log_flag) log.append("D");
 }
 
-void Cube::rL(){
+void Cube::rL() {
     for (auto &angle: angles) {
         if (angle.is_l()) angle.rL();
     }
@@ -191,7 +190,7 @@ void Cube::rL(){
     if (log_flag) log.append("rL");
 }
 
-void Cube::rR(){
+void Cube::rR() {
     for (auto &angle: angles) {
         if (angle.is_r()) angle.rR();
     }
@@ -203,7 +202,7 @@ void Cube::rR(){
     if (log_flag) log.append("rR");
 }
 
-void Cube::rF(){
+void Cube::rF() {
     for (auto &angle: angles) {
         if (angle.is_f()) angle.rF();
     }
@@ -215,7 +214,7 @@ void Cube::rF(){
     if (log_flag) log.append("rF");
 }
 
-void Cube::rB(){
+void Cube::rB() {
     for (auto &angle: angles) {
         if (angle.is_b()) angle.rB();
     }
@@ -227,7 +226,7 @@ void Cube::rB(){
     if (log_flag) log.append("rB");
 }
 
-void Cube::rU(){
+void Cube::rU() {
     for (auto &angle: angles) {
         if (angle.is_u()) angle.rU();
     }
@@ -239,7 +238,7 @@ void Cube::rU(){
     if (log_flag) log.append("rU");
 }
 
-void Cube::rD(){
+void Cube::rD() {
     for (auto &angle: angles) {
         if (angle.is_d()) angle.rD();
     }
@@ -458,7 +457,7 @@ Color *Cube::downside() {
 void Cube::cross() {
     for (int i = 0, j = 0; j < 4; i++) {
 
-        if (i == 11){
+        if (i == 11) {
             i = 0;
             j++;
         }
@@ -489,21 +488,20 @@ void Cube::cross() {
                         continue;
                     }
                 }
-            }
-            else if(twosides[i].is_b()){
-                if(twosides[i].backside() != White){
+            } else if (twosides[i].is_b()) {
+                if (twosides[i].backside() != White) {
 
-                    while (!twosides[i].is_u()){
+                    while (!twosides[i].is_u()) {
                         B();
                     }
 
-                    switch (twosides[i].backside()){
-                        case(Red):
+                    switch (twosides[i].backside()) {
+                        case (Red):
                             U();
                             rR();
                             break;
 
-                        case(Blue):
+                        case (Blue):
                             B();
                             L();
                             rU();
@@ -522,20 +520,18 @@ void Cube::cross() {
                             L();
                             break;
                     }
-                }
-
-                else{
-                    while (!twosides[i].is_u()){
+                } else {
+                    while (!twosides[i].is_u()) {
                         B();
                     }
-                    switch (twosides[i].upside()){
-                        case(Red):
+                    switch (twosides[i].upside()) {
+                        case (Red):
                             rB();
                             R();
                             R();
                             break;
 
-                        case(Blue):
+                        case (Blue):
                             U();
                             U();
                             break;
@@ -554,9 +550,8 @@ void Cube::cross() {
                             break;
                     }
                 }
-            }
-            else {
-                if ((twosides[i].is_u()) && (twosides[i].is_l())){
+            } else {
+                if ((twosides[i].is_u()) && (twosides[i].is_l())) {
                     rL();
                     rB();
                     L();
@@ -564,7 +559,7 @@ void Cube::cross() {
                     continue;
                 }
 
-                if ((twosides[i].is_u()) && (twosides[i].is_r())){
+                if ((twosides[i].is_u()) && (twosides[i].is_r())) {
                     R();
                     rB();
                     rR();
@@ -572,7 +567,7 @@ void Cube::cross() {
                     continue;
                 }
 
-                if ((twosides[i].is_d()) && (twosides[i].is_l())){
+                if ((twosides[i].is_d()) && (twosides[i].is_l())) {
                     L();
                     rB();
                     rL();
@@ -580,7 +575,7 @@ void Cube::cross() {
                     continue;
                 }
 
-                if ((twosides[i].is_d()) && (twosides[i].is_r())){
+                if ((twosides[i].is_d()) && (twosides[i].is_r())) {
                     rR();
                     B();
                     R();
@@ -588,49 +583,47 @@ void Cube::cross() {
                     continue;
                 }
             }
-        }
-        else continue;
+        } else continue;
     }
 }
 
 void Cube::front_angles() {
-    for (int i = 0; i < 8; i++){
+    for (int i = 0; i < 8; i++) {
         if (angles[i].color[0] != White) continue;
-        else{
+        else {
             if (angles[i].placed()) continue;
-            else{
-                if (angles[i].is_f()){
-                    if  ((angles[i].is_u()) && (angles[i].is_l())){
+            else {
+                if (angles[i].is_f()) {
+                    if ((angles[i].is_u()) && (angles[i].is_l())) {
                         rL();
                         rB();
                         L();
                         i--;
                         continue;
                     }
-                    if  ((angles[i].is_u()) && (angles[i].is_r())){
+                    if ((angles[i].is_u()) && (angles[i].is_r())) {
                         R();
                         B();
                         rR();
                         i--;
                         continue;
                     }
-                    if  ((angles[i].is_d()) && (angles[i].is_l())){
+                    if ((angles[i].is_d()) && (angles[i].is_l())) {
                         L();
                         rB();
                         rL();
                         i--;
                         continue;
                     }
-                    if  ((angles[i].is_d()) && (angles[i].is_r())){
+                    if ((angles[i].is_d()) && (angles[i].is_r())) {
                         rR();
                         B();
                         R();
                         i--;
                         continue;
                     }
-                }
-                else{
-                    if (angles[i].backside() == White){
+                } else {
+                    if (angles[i].backside() == White) {
                         while (!((angles[i].is_l()) && (angles[i].is_u()))) B();
                         rL();
                         B();
@@ -638,11 +631,10 @@ void Cube::front_angles() {
                         L();
                         i--;
                         continue;
-                    }
-                    else{
+                    } else {
                         while (!((angles[i].is_l()) && (angles[i].is_u()))) B();
-                        if(angles[i].upside() == White){
-                            if((angles[i].leftside() == Blue) && (angles[i].backside() == Red)) {
+                        if (angles[i].upside() == White) {
+                            if ((angles[i].leftside() == Blue) && (angles[i].backside() == Red)) {
                                 B();
                                 B();
                                 rU();
@@ -651,7 +643,7 @@ void Cube::front_angles() {
                                 continue;
                             }
 
-                            if((angles[i].leftside() == Orange) && (angles[i].backside() == Blue)) {
+                            if ((angles[i].leftside() == Orange) && (angles[i].backside() == Blue)) {
                                 rB();
                                 rL();
                                 B();
@@ -659,7 +651,7 @@ void Cube::front_angles() {
                                 continue;
                             }
 
-                            if((angles[i].leftside() == Red) && (angles[i].backside() == Green)) {
+                            if ((angles[i].leftside() == Red) && (angles[i].backside() == Green)) {
                                 B();
                                 B();
                                 D();
@@ -668,14 +660,13 @@ void Cube::front_angles() {
                                 continue;
                             }
 
-                            if((angles[i].leftside() == Green) && (angles[i].backside() == Orange)) {
+                            if ((angles[i].leftside() == Green) && (angles[i].backside() == Orange)) {
                                 rD();
                                 B();
                                 D();
                                 continue;
                             }
-                        }
-                        else {
+                        } else {
                             rL();
                             rB();
                             L();
@@ -695,15 +686,15 @@ void Cube::front_angles() {
 }
 
 void Cube::mid_twosides() {
-    for (int i = 0; i < 12; i++){
+    for (int i = 0; i < 12; i++) {
         if (twosides[i].is_f()) continue;
         if ((!twosides[i].is_b()) && (twosides[i].placed())) continue;
         if (twosides[i].color[1] == Yellow) continue;
 
-        if (twosides[i].is_b()){
-            while(!twosides[i].is_u()) B();
+        if (twosides[i].is_b()) {
+            while (!twosides[i].is_u()) B();
 
-            if((twosides[i].upside() == Blue) && (twosides[i].backside() == Orange)){
+            if ((twosides[i].upside() == Blue) && (twosides[i].backside() == Orange)) {
                 rB();
                 rL();
                 B();
@@ -715,7 +706,7 @@ void Cube::mid_twosides() {
                 continue;
             }
 
-            if((twosides[i].upside() == Orange) && (twosides[i].backside() == Blue)){
+            if ((twosides[i].upside() == Orange) && (twosides[i].backside() == Blue)) {
                 B();
                 B();
                 U();
@@ -728,7 +719,7 @@ void Cube::mid_twosides() {
                 continue;
             }
 
-            if((twosides[i].upside() == Blue) && (twosides[i].backside() == Red)){
+            if ((twosides[i].upside() == Blue) && (twosides[i].backside() == Red)) {
                 B();
                 R();
                 rB();
@@ -740,7 +731,7 @@ void Cube::mid_twosides() {
                 continue;
             }
 
-            if((twosides[i].upside() == Red) && (twosides[i].backside() == Blue)){
+            if ((twosides[i].upside() == Red) && (twosides[i].backside() == Blue)) {
                 B();
                 B();
                 rU();
@@ -753,7 +744,7 @@ void Cube::mid_twosides() {
                 continue;
             }
 
-            if((twosides[i].upside() == Green) && (twosides[i].backside() == Red)){
+            if ((twosides[i].upside() == Green) && (twosides[i].backside() == Red)) {
                 B();
                 rR();
                 B();
@@ -765,7 +756,7 @@ void Cube::mid_twosides() {
                 continue;
             }
 
-            if((twosides[i].upside() == Red) && (twosides[i].backside() == Green)){
+            if ((twosides[i].upside() == Red) && (twosides[i].backside() == Green)) {
                 D();
                 rB();
                 rD();
@@ -776,7 +767,7 @@ void Cube::mid_twosides() {
                 continue;
             }
 
-            if((twosides[i].upside() == Green) && (twosides[i].backside() == Orange)){
+            if ((twosides[i].upside() == Green) && (twosides[i].backside() == Orange)) {
                 rB();
                 L();
                 rB();
@@ -788,7 +779,7 @@ void Cube::mid_twosides() {
                 continue;
             }
 
-            if((twosides[i].upside() == Orange) && (twosides[i].backside() == Green)){
+            if ((twosides[i].upside() == Orange) && (twosides[i].backside() == Green)) {
                 rD();
                 B();
                 D();
@@ -798,9 +789,8 @@ void Cube::mid_twosides() {
                 rL();
                 continue;
             }
-        }
-        else {
-            if ((twosides[i].is_u()) && (twosides[i].is_l())){
+        } else {
+            if ((twosides[i].is_u()) && (twosides[i].is_l())) {
                 rB();
                 rL();
                 B();
@@ -813,7 +803,7 @@ void Cube::mid_twosides() {
                 continue;
             }
 
-            if ((twosides[i].is_u()) && (twosides[i].is_r())){
+            if ((twosides[i].is_u()) && (twosides[i].is_r())) {
                 B();
                 R();
                 rB();
@@ -826,7 +816,7 @@ void Cube::mid_twosides() {
                 continue;
             }
 
-            if ((twosides[i].is_d()) && (twosides[i].is_r())){
+            if ((twosides[i].is_d()) && (twosides[i].is_r())) {
                 B();
                 D();
                 rB();
@@ -839,7 +829,7 @@ void Cube::mid_twosides() {
                 continue;
             }
 
-            if ((twosides[i].is_d()) && (twosides[i].is_l())){
+            if ((twosides[i].is_d()) && (twosides[i].is_l())) {
                 rB();
                 rD();
                 B();
@@ -858,9 +848,9 @@ void Cube::mid_twosides() {
 void Cube::back_cross_placing() {
     while (!twosides[8].is_u()) B();
 
-    if((twosides[9].is_r()) && (twosides[10].is_d()) && (twosides[11].is_l())) return;
+    if ((twosides[9].is_r()) && (twosides[10].is_d()) && (twosides[11].is_l())) return;
 
-    if((twosides[9].is_r()) && (twosides[10].is_l()) && (twosides[11].is_d())){
+    if ((twosides[9].is_r()) && (twosides[10].is_l()) && (twosides[11].is_d())) {
         B();
         rR();
         B();
@@ -873,7 +863,7 @@ void Cube::back_cross_placing() {
         return;
     }
 
-    if((twosides[9].is_d()) && (twosides[10].is_r()) && (twosides[11].is_l())){
+    if ((twosides[9].is_d()) && (twosides[10].is_r()) && (twosides[11].is_l())) {
         B();
         rU();
         B();
@@ -886,7 +876,7 @@ void Cube::back_cross_placing() {
         return;
     }
 
-    if((twosides[9].is_d()) && (twosides[10].is_l()) && (twosides[11].is_r())){
+    if ((twosides[9].is_d()) && (twosides[10].is_l()) && (twosides[11].is_r())) {
         B();
         B();
         rD();
@@ -900,7 +890,7 @@ void Cube::back_cross_placing() {
         return;
     }
 
-    if((twosides[9].is_l()) && (twosides[10].is_r()) && (twosides[11].is_d())){
+    if ((twosides[9].is_l()) && (twosides[10].is_r()) && (twosides[11].is_d())) {
         rL();
         B();
         B();
@@ -912,7 +902,7 @@ void Cube::back_cross_placing() {
         return;
     }
 
-    if((twosides[9].is_l()) && (twosides[10].is_d()) && (twosides[11].is_r())){
+    if ((twosides[9].is_l()) && (twosides[10].is_d()) && (twosides[11].is_r())) {
         rL();
         B();
         B();
@@ -934,7 +924,7 @@ void Cube::back_cross_placing() {
     }
 }
 
-void Cube::windmill(){
+void Cube::windmill() {
     U();
     rF();
     B();
@@ -949,16 +939,16 @@ void Cube::windmill(){
     B();
 }
 
-void Cube::back_cross_rotating(){
-    if ((!twosides[8].placed()) && (!twosides[9].placed()) && (!twosides[10].placed()) && (!twosides[11].placed())){
-        for (int i = 0; i < 4; i++){
+void Cube::back_cross_rotating() {
+    if ((!twosides[8].placed()) && (!twosides[9].placed()) && (!twosides[10].placed()) && (!twosides[11].placed())) {
+        for (int i = 0; i < 4; i++) {
             windmill();
             B();
         }
         return;
     }
 
-    if ((!twosides[8].placed()) && (!twosides[9].placed())){
+    if ((!twosides[8].placed()) && (!twosides[9].placed())) {
         windmill();
         B();
         windmill();
@@ -966,7 +956,7 @@ void Cube::back_cross_rotating(){
         return;
     }
 
-    if ((!twosides[8].placed()) && (!twosides[10].placed())){
+    if ((!twosides[8].placed()) && (!twosides[10].placed())) {
         windmill();
         B();
         B();
@@ -976,7 +966,7 @@ void Cube::back_cross_rotating(){
         return;
     }
 
-    if ((!twosides[8].placed()) && (!twosides[11].placed())){
+    if ((!twosides[8].placed()) && (!twosides[11].placed())) {
         windmill();
         rB();
         windmill();
@@ -984,7 +974,7 @@ void Cube::back_cross_rotating(){
         return;
     }
 
-    if ((!twosides[9].placed()) && (!twosides[10].placed())){
+    if ((!twosides[9].placed()) && (!twosides[10].placed())) {
         B();
         windmill();
         B();
@@ -994,7 +984,7 @@ void Cube::back_cross_rotating(){
         return;
     }
 
-    if ((!twosides[9].placed()) && (!twosides[11].placed())){
+    if ((!twosides[9].placed()) && (!twosides[11].placed())) {
         B();
         windmill();
         B();
@@ -1004,7 +994,7 @@ void Cube::back_cross_rotating(){
         return;
     }
 
-    if ((!twosides[10].placed()) && (!twosides[11].placed())){
+    if ((!twosides[10].placed()) && (!twosides[11].placed())) {
         B();
         B();
         windmill();
@@ -1015,12 +1005,12 @@ void Cube::back_cross_rotating(){
     }
 }
 
-void Cube::back_cross(){
+void Cube::back_cross() {
     back_cross_placing();
     back_cross_rotating();
 }
 
-void Cube::g_twist(){
+void Cube::g_twist() {
     rR();
     rU();
     rL();
@@ -1031,7 +1021,7 @@ void Cube::g_twist(){
     U();
 }
 
-void Cube::back_angles_placing(){
+void Cube::back_angles_placing() {
     while (!((angles[4].twisted()) && (angles[5].twisted()) && (angles[6].twisted()) && (angles[7].twisted()))) {
 
         if ((!angles[4].twisted()) && (!angles[5].twisted()) && (!angles[6].twisted()) && (!angles[7].twisted())) {
@@ -1039,30 +1029,30 @@ void Cube::back_angles_placing(){
         }
 
         if ((!angles[4].twisted()) && (!angles[5].twisted()) && (angles[6].twisted()) && (!angles[7].twisted())) {
-                rB();
-                g_twist();
-                B();
+            rB();
+            g_twist();
+            B();
             continue;
         }
 
         if ((!angles[4].twisted()) && (!angles[5].twisted()) && (!angles[6].twisted()) && (angles[7].twisted())) {
-                g_twist();
+            g_twist();
             continue;
         }
 
         if ((angles[4].twisted()) && (!angles[5].twisted()) && (!angles[6].twisted()) && (!angles[7].twisted())) {
-                B();
-                g_twist();
-                rB();
+            B();
+            g_twist();
+            rB();
             continue;
         }
 
         if ((!angles[4].twisted()) && (angles[5].twisted()) && (!angles[6].twisted()) && (!angles[7].twisted())) {
-                B();
-                B();
-                g_twist();
-                B();
-                B();
+            B();
+            B();
+            g_twist();
+            B();
+            B();
             continue;
         }
 
@@ -1078,7 +1068,7 @@ void Cube::back_angles_placing(){
     }
 }
 
-void Cube::rotate(){
+void Cube::rotate() {
     rL();
     U();
     L();
@@ -1089,7 +1079,7 @@ void Cube::rotate(){
     rU();
 }
 
-void Cube::back_angles_rotating(){
+void Cube::back_angles_rotating() {
     while (!(angles[4].placed())) {
         rotate();
     }
@@ -1115,12 +1105,12 @@ void Cube::back_angles_rotating(){
     }
 }
 
-void Cube::back_angles(){
+void Cube::back_angles() {
     back_angles_placing();
     back_angles_rotating();
 }
 
-void Cube::solve(){
+void Cube::solve() {
     cross();
     front_angles();
     mid_twosides();
@@ -1128,52 +1118,108 @@ void Cube::solve(){
     back_angles();
 }
 
-std::string Cube::solve_sequence(){
+std::string Cube::solve_sequence() {
+    std::string temp_log = log;
     log = "";
     log_flag = true;
     solve();
-    return log;
+    std::string ans = log;
+    temp_log = temp_log + log;
+    log = temp_log;
+    return ans;
 }
 
-void Cube::apply(const std::string& s){
-    for(int i = 0; i < s.length(); i++){
-        if(s[i] == 'L') L();
-        if(s[i] == 'R') R();
-        if(s[i] == 'U') U();
-        if(s[i] == 'D') D();
-        if(s[i] == 'B') B();
-        if(s[i] == 'F') F();
-        if(s[i] == 'r'){
+void Cube::apply(const std::string &s) {
+    for (int i = 0; i < s.length(); i++) {
+        if (s[i] == 'L') L();
+        if (s[i] == 'R') R();
+        if (s[i] == 'U') U();
+        if (s[i] == 'D') D();
+        if (s[i] == 'B') B();
+        if (s[i] == 'F') F();
+        if (s[i] == 'r') {
             i++;
-            if(s[i] == 'L') rL();
-            if(s[i] == 'R') rR();
-            if(s[i] == 'U') rU();
-            if(s[i] == 'D') rD();
-            if(s[i] == 'B') rB();
-            if(s[i] == 'F') rF();
+            if (s[i] == 'L') rL();
+            if (s[i] == 'R') rR();
+            if (s[i] == 'U') rU();
+            if (s[i] == 'D') rD();
+            if (s[i] == 'B') rB();
+            if (s[i] == 'F') rF();
         }
     }
 }
-bool is_correct(Cube &a){
+
+std::string Cube::rand_apply(int cnt) {
+    srand((unsigned int) time(NULL));
+
+    std::string seq;
+    int cmd;
+    for (int i = 0; i < cnt; i++) {
+        cmd = std::rand() % 12;
+        switch (cmd) {
+            case 0:
+                seq.append("L");
+                break;
+            case 1:
+                seq.append("rL");
+                break;
+            case 2:
+                seq.append("R");
+                break;
+            case 3:
+                seq.append("rR");
+                break;
+            case 4:
+                seq.append("F");
+                break;
+            case 5:
+                seq.append("rF");
+                break;
+            case 6:
+                seq.append("B");
+                break;
+            case 7:
+                seq.append("rB");
+                break;
+            case 8:
+                seq.append("U");
+                break;
+            case 9:
+                seq.append("rU");
+                break;
+            case 10:
+                seq.append("D");
+                break;
+            case 11:
+                seq.append("rD");
+                break;
+        }
+    }
+    apply(seq);
+    return seq;
+}
+
+bool is_correct(Cube &a) {
     Cube temp1 = a;
     Cube temp2 = Cube();
 
-    try{
+    try {
         temp1.solve();
     }
-    catch (int err){
+    catch (int err) {
         return false;
     }
     return (temp1 == temp2);
 }
-void set_current(const std::string& filename){
+
+void set_current(const std::string &filename) {
     std::ofstream out;
     out.open("cube.cur");
     out << filename;
     out.close();
 }
 
-std::string get_current(){
+std::string get_current() {
     std::string filename;
     std::ifstream in;
     in.open("cube.cur");
@@ -1195,9 +1241,15 @@ std::ostream &operator<<(std::ostream &out, Cube c) {
     out << "        |" << " " << u[3] << " " << u[4] << " " << u[5] << " " << "|        \n";
     out << "        |" << " " << u[6] << " " << u[7] << " " << u[8] << " " << "|        \n";
     out << "+-------+-------+-------+-------+\n";
-    out << "|" << " " << l[0] << " " << l[1] << " " << l[2] << " " << "|" << " " << f[0] << " " << f[1] << " " << f[2] << " " << "|" << " " << r[0] << " " << r[1] << " " << r[2] << " " << "|" << " " << b[0] << " " << b[1] << " " << b[2] << " " << "|\n";
-    out << "|" << " " << l[3] << " " << l[4] << " " << l[5] << " " << "|" << " " << f[3] << " " << f[4] << " " << f[5] << " " << "|" << " " << r[3] << " " << r[4] << " " << r[5] << " " << "|" << " " << b[3] << " " << b[4] << " " << b[5] << " " << "|\n";
-    out << "|" << " " << l[6] << " " << l[7] << " " << l[8] << " " << "|" << " " << f[6] << " " << f[7] << " " << f[8] << " " << "|" << " " << r[6] << " " << r[7] << " " << r[8] << " " << "|" << " " << b[6] << " " << b[7] << " " << b[8] << " " << "|\n";
+    out << "|" << " " << l[0] << " " << l[1] << " " << l[2] << " " << "|" << " " << f[0] << " " << f[1] << " " << f[2]
+        << " " << "|" << " " << r[0] << " " << r[1] << " " << r[2] << " " << "|" << " " << b[0] << " " << b[1] << " "
+        << b[2] << " " << "|\n";
+    out << "|" << " " << l[3] << " " << l[4] << " " << l[5] << " " << "|" << " " << f[3] << " " << f[4] << " " << f[5]
+        << " " << "|" << " " << r[3] << " " << r[4] << " " << r[5] << " " << "|" << " " << b[3] << " " << b[4] << " "
+        << b[5] << " " << "|\n";
+    out << "|" << " " << l[6] << " " << l[7] << " " << l[8] << " " << "|" << " " << f[6] << " " << f[7] << " " << f[8]
+        << " " << "|" << " " << r[6] << " " << r[7] << " " << r[8] << " " << "|" << " " << b[6] << " " << b[7] << " "
+        << b[8] << " " << "|\n";
     out << "+-------+-------+-------+-------+\n";
     out << "        |" << " " << d[0] << " " << d[1] << " " << d[2] << " " << "|        \n";
     out << "        |" << " " << d[3] << " " << d[4] << " " << d[5] << " " << "|        \n";

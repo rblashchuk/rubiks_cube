@@ -124,7 +124,7 @@ public:
 
     void reset_log();
 
-    void load(const std::string& filename);
+    void load(const std::string &filename);
 
     void dump(const std::string &filename);
 
@@ -132,12 +132,14 @@ public:
 
     std::string solve_sequence();
 
-    void apply(const std::string& s);
+    void apply(const std::string &s);
+
+    std::string rand_apply(int cnt);
 };
 
 bool is_correct(Cube &a);
 
-void set_current(const std::string& filename);
+void set_current(const std::string &filename);
 
 std::string get_current();
 

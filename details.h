@@ -6,12 +6,17 @@
 #ifndef CUBE_DETAILS_H
 #define CUBE_DETAILS_H
 
-enum class direction {f, b, r, l, u, d};
+enum class direction {
+    f, b, r, l, u, d
+};
 
-enum class Color {W, B, R, O, G, Y, X};
+enum class Color {
+    W, B, R, O, G, Y, X
+};
 
 std::ostream &operator<<(std::ostream &out, Color c);
-std::istream &operator >>(std::istream &in, direction &a);
+
+std::istream &operator>>(std::istream &in, direction &a);
 
 class Dir {
 public:
@@ -33,7 +38,7 @@ public:
 
     void D();
 
-    bool operator == (const Dir &d1) const = default;
+    bool operator==(const Dir &d1) const = default;
 
     void rL();
 
@@ -48,8 +53,9 @@ public:
     void rD();
 };
 
-std::ostream &operator <<(std::ostream &out, Dir &a);
-std::istream &operator >>(std::istream &in, Dir &a);
+std::ostream &operator<<(std::ostream &out, Dir &a);
+
+std::istream &operator>>(std::istream &in, Dir &a);
 
 class Twoside {
 
@@ -118,7 +124,7 @@ public:
     void rD();
 };
 
-std::ostream &operator <<(std::ostream &out, Twoside a);
+std::ostream &operator<<(std::ostream &out, Twoside a);
 
 class Angle {
 
@@ -135,7 +141,8 @@ public:
 
     bool operator==(const Angle &c1) const = default;
 
-    Angle(const Color &c1, const Color &c2, const Color &c3, const direction &d1, const direction &d2, const direction &d3);
+    Angle(const Color &c1, const Color &c2, const Color &c3, const direction &d1, const direction &d2,
+          const direction &d3);
 
     const Dir *get_dir() const;
 
@@ -195,6 +202,6 @@ public:
 };
 
 
-std::ostream &operator <<(std::ostream &out, Angle a);
+std::ostream &operator<<(std::ostream &out, Angle a);
 
 #endif //CUBE_DETAILS_H
