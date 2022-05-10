@@ -1,74 +1,141 @@
 #include <iostream>
+#include <fstream>
+#include "argparse/include/argparse/argparse.hpp"
 #include "details.h"
 #include "cube.h"
 
-int main() {
-    direction d1 = direction::u;
-    direction d2 = direction::f;
-    direction d3 = direction::r;
+int main(int argc, char* argv[]) {
 
-    Twoside a = Twoside(Color::B, Color::W, d1, d2);
-    Angle b = Angle(Color::B, Color::W, Color::R, d1, d2, d3);
+    Cube curr = Cube();
 
-    std::cout << a << "\n";
-    a.U();
-    a.L();
-    a.F();
-    a.F();
-    a.rR();
-    std::cout << a << "\n";
+    argparse::ArgumentParser arg_parser("cube");
 
-    std::cout << b << "\n";
+    arg_parser.add_argument("-new")
+    .help("Creates new cube")
+    .nargs(1);
 
-    b.U();
-    b.F();
-    b.R();
-    b.R();
+    arg_parser.add_argument("-l", "--load")
+    .help("Loads previously saved cube")
+    .nargs(1);
 
-    std::cout << b << "\n";
+    arg_parser.add_argument("--set_log")
+    .help("Starts/stops to log current cube moves")
+    .nargs(1);
 
-    Cube c = Cube();
-    std::cout << "INIT CUBE:\n" << c << "_____\n";
-    c.R();
-    c.rU();
-    c.B();
-    c.U();
-    c.F();
-    c.rR();
-    c.R();
-    c.L();
-    c.F();
-    c.L();
-    c.U();
-    c.rR();
+    arg_parser.add_argument("-a", "--apply")
+    .help("Applies sequence of moves to current cube")
+    .nargs(1);
+
+    arg_parser.add_argument("-out", "--output")
+    .help("Prints position of current cube")
+    .default_value(false)
+    .implicit_value(true);
+
+    arg_parser.add_argument("--solve")
+    .help("Solves current cube and returns solving sequence")
+    .default_value(false)
+    .implicit_value(true);
+
+    arg_parser.add_argument("-log")
+    .help("Prints log of current cube")
+    .default_value(false)
+    .implicit_value(true);
+
+    arg_parser.add_argument("-s", "--save")
+    .help("Saves current cube to file")
+    .nargs(1);
 
 
-    c.dump("test.txt");
 
-    Cube x = Cube();
-    x.load("test.txt");
+    try{
+        arg_parser.parse_args(argc, argv);
+    }
+    catch (const std::runtime_error& err){
+            std::cerr << err.what() << std::endl;
+            std::cerr << arg_parser;
+            std::exit(1);
+    }
 
-    std::cout << "UNSOLVED:\n" << c << "_____\n";
+    auto newcube = arg_parser.present<std::string>("-new");
 
-    std::cout << "LOADED FROM FILE:\n" << x << "_____\n";
+    auto sequence = arg_parser.present<std::string>("--apply");
 
-    c.set_logging(true);
-    c.cross();
-    std::cout << "CROSS:\n" << c << "_____\n";
+    auto loads = arg_parser.present<std::string>("--load");
 
-    c.front_angles();
-    std::cout << "FRONT ANGLES:\n" << c << "_____\n";
+    auto dumps = arg_parser.present<std::string>("--save");
 
-    c.mid_twosides();
-    std::cout << "MID TWOSIDES:\n" << c << "_____\n";
+    auto set_log = arg_parser.present<std::string>("--set_log");
 
-    c.back_cross();
-    std::cout << "BACK CROSS:\n" << c << "_____\n";
+    if (newcube){
+        std::string filename = newcube.value() + ".cub";
+        curr.dump(filename);
+        set_current(filename);
+        std::cout << "New cube " << filename << " created\n";
+    }
 
-    c.back_angles();
-    std::cout << "SOLVED:\n" << c << "_____\n";
+    if (loads){
+        std::string filename = loads.value() + ".cub";
+        curr.load(filename);
+        set_current(filename);
+        std::cout << "Cube " << filename << " loaded.\n";
+    }
 
-    std::cout << c.log;
+    if (set_log){
+        std::string filename = get_current();
+        curr.load(filename);
+        if(set_log.value() == "on") {
+            curr.set_logging(true);
+            std::cout << "Logging started\n";
+        }
+
+        if(set_log.value() == "off") {
+            curr.set_logging(false);
+            std::cout << "Logging stopped\n";
+        }
+        curr.dump(filename);
+    }
+
+    if (sequence){
+        std::string filename = get_current();
+        curr.load(filename);
+        curr.apply(sequence.value());
+        std::cout << "Sequence " << sequence.value() << " applied\n";
+        curr.dump(filename);
+    }
+
+    if (arg_parser["--output"] == true) {
+        std::string filename = get_current();
+        curr.load(filename);
+        std::cout << "Current state of cube:\n" << curr;
+    }
+
+    if (arg_parser["--solve"] == true) {
+        std::string filename = get_current();
+        curr.load(filename);
+        std::string solve = curr.solve_sequence();
+        std::cout << "Solving sequence:\n" << solve << "\nCurrent state of cube:\n" << curr;
+        curr.dump(filename);
+    }
+
+    if (arg_parser["-log"] == true) {
+        std::string filename = get_current();
+        curr.load(filename);
+        std::cout << "Current log of cube:\n" << curr.log << "\n";
+    }
+
+    if (dumps){
+        std::string filename = dumps.value() + ".cub";
+        curr.dump(filename);
+        set_current(filename);
+        std::cout << "Current cube saved as " << filename << "\n";
+    }
+
+
+
+
+
+
+    return 0;
 }
 
 

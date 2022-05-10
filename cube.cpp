@@ -21,7 +21,7 @@ Cube::Cube(const Cube &c) = default;
 
 Cube &Cube::operator=(const Cube &c1) = default;
 
-bool Cube::operator==(const Cube &c1) {
+bool Cube::operator==(const Cube &c1) const{
     for (int i = 0; i < 8; i++){
         if (!(angles[i] == c1.angles[i])) return false;
     }
@@ -71,6 +71,14 @@ void Cube::load(const std::string& filename){
     for (int i = 0; i < 12; i++){
         in >> twosides[i].dir[0] >> twosides[i].dir[1];
     }
+    in >> log;
+    log.erase(0, 1);
+    log.erase(0, 1);
+    int flag;
+    in >> flag;
+
+    if (flag == 1) log_flag = true;
+    else log_flag = false;
     in.close();
 }
 
@@ -84,6 +92,8 @@ void Cube::dump(const std::string& filename){
     for (int i = 0; i < 12; i++){
         out << twosides[i].dir[0] << twosides[i].dir[1] << "\n";
     }
+    out << ">>" << log << "\n";
+    log_flag ? out << 1 << "\n": out << 0 << "\n";
     out.close();
 }
 
@@ -446,7 +456,7 @@ Color *Cube::downside() {
 }
 
 void Cube::cross() {
-    for (int i = 0, j = 0; j < 1; i++) {
+    for (int i = 0, j = 0; j < 4; i++) {
 
         if (i == 11){
             i = 0;
@@ -1022,57 +1032,49 @@ void Cube::g_twist(){
 }
 
 void Cube::back_angles_placing(){
-    if ((angles[4].twisted()) && (angles[5].twisted()) && (angles[6].twisted()) && (angles[7].twisted())) return;
+    while (!((angles[4].twisted()) && (angles[5].twisted()) && (angles[6].twisted()) && (angles[7].twisted()))) {
 
-    if ((!angles[4].twisted()) && (!angles[5].twisted()) && (!angles[6].twisted()) && (!angles[7].twisted())) {
-        g_twist();
-    }
-
-    if ((!angles[4].twisted()) && (!angles[5].twisted()) && (angles[6].twisted()) && (!angles[7].twisted())){
-        while((!angles[4].twisted())) {
-            rB();
-            g_twist();
-            B();
-        }
-        return;
-    }
-
-    if ((!angles[4].twisted()) && (!angles[5].twisted()) && (!angles[6].twisted()) && (angles[7].twisted())){
-        while((!angles[4].twisted())) {
+        if ((!angles[4].twisted()) && (!angles[5].twisted()) && (!angles[6].twisted()) && (!angles[7].twisted())) {
             g_twist();
         }
-        return;
-    }
 
-    if ((angles[4].twisted()) && (!angles[5].twisted()) && (!angles[6].twisted()) && (!angles[7].twisted())){
-        while((!angles[5].twisted())) {
-            B();
-            g_twist();
-            rB();
+        if ((!angles[4].twisted()) && (!angles[5].twisted()) && (angles[6].twisted()) && (!angles[7].twisted())) {
+                rB();
+                g_twist();
+                B();
+            continue;
         }
-        return;
-    }
 
-    if ((!angles[4].twisted()) && (angles[5].twisted()) && (!angles[6].twisted()) && (!angles[7].twisted())) {
-        while ((!angles[5].twisted())) {
-            B();
-            B();
-            g_twist();
-            B();
-            B();
+        if ((!angles[4].twisted()) && (!angles[5].twisted()) && (!angles[6].twisted()) && (angles[7].twisted())) {
+                g_twist();
+            continue;
         }
-        return;
-    }
 
-    if ((angles[4].twisted()) && (!angles[5].twisted()) && (!angles[6].twisted()) && (angles[7].twisted())) {
-        while ((!angles[5].twisted())) {
-            B();
-            B();
-            g_twist();
-            B();
-            B();
+        if ((angles[4].twisted()) && (!angles[5].twisted()) && (!angles[6].twisted()) && (!angles[7].twisted())) {
+                B();
+                g_twist();
+                rB();
+            continue;
         }
-        return;
+
+        if ((!angles[4].twisted()) && (angles[5].twisted()) && (!angles[6].twisted()) && (!angles[7].twisted())) {
+                B();
+                B();
+                g_twist();
+                B();
+                B();
+            continue;
+        }
+
+        if ((angles[4].twisted()) && (!angles[5].twisted()) && (!angles[6].twisted()) && (angles[7].twisted())) {
+            while ((!angles[5].twisted())) {
+                B();
+                B();
+                g_twist();
+                B();
+                B();
+            }
+        }
     }
 }
 
@@ -1116,6 +1118,68 @@ void Cube::back_angles_rotating(){
 void Cube::back_angles(){
     back_angles_placing();
     back_angles_rotating();
+}
+
+void Cube::solve(){
+    cross();
+    front_angles();
+    mid_twosides();
+    back_cross();
+    back_angles();
+}
+
+std::string Cube::solve_sequence(){
+    log = "";
+    log_flag = true;
+    solve();
+    return log;
+}
+
+void Cube::apply(const std::string& s){
+    for(int i = 0; i < s.length(); i++){
+        if(s[i] == 'L') L();
+        if(s[i] == 'R') R();
+        if(s[i] == 'U') U();
+        if(s[i] == 'D') D();
+        if(s[i] == 'B') B();
+        if(s[i] == 'F') F();
+        if(s[i] == 'r'){
+            i++;
+            if(s[i] == 'L') rL();
+            if(s[i] == 'R') rR();
+            if(s[i] == 'U') rU();
+            if(s[i] == 'D') rD();
+            if(s[i] == 'B') rB();
+            if(s[i] == 'F') rF();
+        }
+    }
+}
+bool is_correct(Cube &a){
+    Cube temp1 = a;
+    Cube temp2 = Cube();
+
+    try{
+        temp1.solve();
+    }
+    catch (int err){
+        return false;
+    }
+    return (temp1 == temp2);
+}
+void set_current(const std::string& filename){
+    std::ofstream out;
+    out.open("cube.cur");
+    out << filename;
+    out.close();
+}
+
+std::string get_current(){
+    std::string filename;
+    std::ifstream in;
+    in.open("cube.cur");
+    in >> filename;
+    in.close();
+    return filename;
 }
 
 std::ostream &operator<<(std::ostream &out, Cube c) {

@@ -15,7 +15,7 @@ public:
 
     Cube &operator=(const Cube &c1);
 
-    bool operator==(const Cube &c1);
+    bool operator==(const Cube &c1) const;
 
     Cube();
 
@@ -127,7 +127,19 @@ public:
     void load(const std::string& filename);
 
     void dump(const std::string &filename);
+
+    void solve();
+
+    std::string solve_sequence();
+
+    void apply(const std::string& s);
 };
+
+bool is_correct(Cube &a);
+
+void set_current(const std::string& filename);
+
+std::string get_current();
 
 std::ostream &operator<<(std::ostream &out, Cube c);
 
