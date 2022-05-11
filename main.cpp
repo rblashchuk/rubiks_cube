@@ -11,33 +11,37 @@ int main(int argc, char *argv[]) {
     argparse::ArgumentParser arg_parser("cube");
 
     arg_parser.add_argument("-n", "--new")
-            .help("Creates new cube. Requires: Non-empty Aa-Zz string (cube name)")
+            .help("Creates new cube. Requires: Non-empty Aa-Zz string (cube name).")
             .nargs(1);
 
     arg_parser.add_argument("-l", "--load")
-            .help("Loads previously saved cube. Requires: Non-empty Aa-Zz string (cube name)")
+            .help("Loads previously saved cube. Requires: Non-empty Aa-Zz string (cube name).")
             .nargs(1);
 
-    arg_parser.add_argument("--set_log")
+    arg_parser.add_argument("-b", "--beauty")
+            .help("Loads a preset. Requires: preset name (to see list of presets, pass \"list\").")
+            .nargs(1);
+
+    arg_parser.add_argument("-sl", "--set_log")
             .help("Starts/stops logging current cube moves. Requires: \"on\" will start logging, \"off\" will stop.")
             .nargs(1);
 
     arg_parser.add_argument("-a", "--apply")
-            .help("Applies sequence of moves to current cube. Requires: Non-empty string of moves (LRUDFBrLrRrUrDrFrB)")
+            .help("Applies sequence of moves to cube. Requires: Non-empty string of moves (LRUDFBrLrRrUrDrFrB).")
             .nargs(1);
 
     arg_parser.add_argument("-r", "--rand")
-            .help("Applies random move sequence to current cube. Requires: One integer - length of sequence")
+            .help("Applies random move sequence to current cube. Requires: One integer - length of sequence.")
             .nargs(1)
             .scan<'i', int>();
 
     arg_parser.add_argument("-out", "--output")
-            .help("Prints position of current cube")
+            .help("Prints position of current cube.")
             .default_value(false)
             .implicit_value(true);
 
     arg_parser.add_argument("--solve")
-            .help("Solves current cube and returns solving sequence")
+            .help("Solves current cube and returns solving sequence.")
             .default_value(false)
             .implicit_value(true);
 
@@ -53,7 +57,7 @@ int main(int argc, char *argv[]) {
             .implicit_value(true);
 
     arg_parser.add_argument("-s", "--save")
-            .help("Saves current cube to file. Requires: Non-empty Aa-Zz string (cube name)")
+            .help("Saves current cube. Requires: Non-empty Aa-Zz string (cube name).")
             .nargs(1);
 
 
@@ -67,6 +71,8 @@ int main(int argc, char *argv[]) {
     }
 
     auto newcube = arg_parser.present<std::string>("--new");
+
+    auto beauty = arg_parser.present<std::string>("--beauty");
 
     auto sequence = arg_parser.present<std::string>("--apply");
 
@@ -83,6 +89,34 @@ int main(int argc, char *argv[]) {
         curr.dump(filename);
         set_current(filename);
         std::cout << "New cube \"" << newcube.value() << "\" created.\n";
+    }
+
+    if (beauty) {
+        std::string preset = "Presets\\" + beauty.value() + ".cub";
+        std::string filename = get_current();
+
+        if (beauty.value() == "list") {
+            std::cout
+                    << "\nAvaliable presets:\n__________________\ncenters\ncherries\nchess\ndiags\npropeller\nreverse\nrings\nsnake\nzzz\n";
+        }
+
+        else {
+            std::ifstream pre;
+            std::ofstream user;
+
+            pre.open(preset);
+            user.open(filename);
+
+            std::string temp;
+            for (int i = 0; i < 22; i++) {
+                pre >> temp;
+                user << temp << "\n";
+            }
+
+            std::cout << "Preset \"" << beauty.value() << "\" loaded.";
+
+        }
+
     }
 
     if (loads) {
