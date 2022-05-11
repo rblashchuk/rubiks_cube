@@ -79,17 +79,17 @@ int main(int argc, char *argv[]) {
     auto set_log = arg_parser.present<std::string>("--set_log");
 
     if (newcube) {
-        std::string filename = newcube.value() + ".cub";
+        std::string filename = "User_saves\\" + newcube.value() + ".cub";
         curr.dump(filename);
         set_current(filename);
-        std::cout << "New cube " << filename << " created.\n";
+        std::cout << "New cube \"" << newcube.value() << "\" created.\n";
     }
 
     if (loads) {
-        std::string filename = loads.value() + ".cub";
+        std::string filename = "User_saves\\" + loads.value() + ".cub";
         curr.load(filename);
         set_current(filename);
-        std::cout << "Cube " << filename << " loaded.\n";
+        std::cout << "Cube \"" << loads.value() << "\" loaded.\n";
     }
 
     if (set_log) {
@@ -152,10 +152,10 @@ int main(int argc, char *argv[]) {
     }
 
     if (dumps) {
-        std::string filename = dumps.value() + ".cub";
+        std::string filename = "User_saves\\" + dumps.value() + ".cub";
         curr.dump(filename);
         set_current(filename);
-        std::cout << "Current cube saved as " << filename << ".\n";
+        std::cout << "Current cube saved as \"" << dumps.value() << "\".\n";
     }
 
 
